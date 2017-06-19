@@ -11,7 +11,14 @@ private:
 public:
   subject(){}
   subject(const std::string id,const std::string n,const std::string ects,const std::string ab):id_(id),name_(n),ects_(ects),abb_(ab){}
- 
+  void setid(const std::string id){id_=id;}
+  void setname(const std::string name){name_=name;}
+  void setects(const std::string ects){ects_=ects;}
+  void setabb(const std::string ab){abb_=ab;}
+  std::string getid()const{return id_;} 
+  std::string getname()const{return name_;}
+  std::string getects()const{return ects_;}
+  std::string getabb()const{return abb_;}
   
 };
 
