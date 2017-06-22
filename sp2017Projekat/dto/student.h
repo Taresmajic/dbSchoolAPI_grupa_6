@@ -9,9 +9,9 @@ public:
   student(){}
   student(const std::string id,const std::string fn,const std::string ln,const std::string bd,const std::string em,const std::string gd,const std::string jmb,std::string did):osoba(id,fn,ln,bd,em,gd,jmb),departmentId_(did){}
 
-void setdepartmentId(const std::string id){departmentId_=id;}
+void setDepartmentId(const std::string id){departmentId_=id;}
 
-std::string getdepartmentId()const{return departmentId_;}
+std::string getDepartmentId()const{return departmentId_;}
 
 };
 
