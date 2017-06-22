@@ -74,7 +74,7 @@ void parsiraj(List<department> &r,string l){
   
   separate(i,l,id);
   separate(i,l,Name);
-  r.insert(departments(id,Name));
+  r.insert(department(id,Name));
 }
 
 
