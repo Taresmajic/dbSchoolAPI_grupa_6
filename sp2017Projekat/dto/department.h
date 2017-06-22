@@ -13,7 +13,15 @@ public:
   void setname(const std::string name){name_=name;}
   std::string getid()const{return id_;}
   std::string getname()const{return name_;}
-
+  bool operator<(const departments& drugi){
+    return id_<drugi.id_;
+  }
+  bool operator>(const departments& drugi){
+    return id_>drugi.id_;
+  }
+  bool operator==(const departments& drugi){
+    return id_==drugi.id_;
+  }
 
 };
 
