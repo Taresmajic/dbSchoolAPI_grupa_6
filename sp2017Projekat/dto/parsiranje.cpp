@@ -114,8 +114,8 @@ void parsiraj(List<subjectTeachers> &r,string l){
   r.insert(subjectTeachers(sid,tid));
 }
 int main (){
-  List<teacher> tch
-  fstream fajl("teachers.txt");
+  List<teacher> tch;
+  fstream fajl("../db/teachers.txt");
   string ko;
   while(getline(fajl,ko))
     parsiraj(tch,ko);
