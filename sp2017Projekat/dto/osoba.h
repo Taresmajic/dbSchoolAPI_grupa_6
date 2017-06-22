@@ -27,10 +27,10 @@ public:
   std::string getId()const{return id_;}
   std::string getFirstName()const{return firstName_;}
   std::string getLastName()const{return lastName_;}
-  std::string getbirthdate()const{return birthdate_;}
-  std::string getemail()const{return email_;}
-  std::string getgender()const{return gender_;}
-  std::string getjmbg()const{return jmbg_;}
+  std::string getBirthdate()const{return birthdate_;}
+  std::string getEmail()const{return email_;}
+  std::string getGender()const{return gender_;}
+  std::string getJmbg()const{return jmbg_;}
   
   bool operator < (const osoba& drugi)const{
     return id_ < drugi.id_;
