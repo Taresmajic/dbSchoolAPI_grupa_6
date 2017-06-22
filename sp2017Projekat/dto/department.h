@@ -1,6 +1,7 @@
 #ifndef DEPARTMENT_H_
 #define DEPARTMENT_H_
 #include<string>
+#include<iostream>
 
 class department{
 private:
