@@ -19,10 +19,10 @@ public:
   void setId(const std::string id){id_=id;}
   void setfirstName(const std::string fn){firstName_=fn;}
   void setlastName(const std::string ln){lastName_=ln;}
-  void setbirthdate(const std::string bd){birthdate_=bd;}
-  void setemail(const std::string em){email_=em;}
-  void setgender(const std::string gd){gender_=gd;}
-  void setjmbg(const std::string jmb){jmbg_=jmb;}
+  void setBirthdate(const std::string bd){birthdate_=bd;}
+  void setEmail(const std::string em){email_=em;}
+  void setGender(const std::string gd){gender_=gd;}
+  void setJmbg(const std::string jmb){jmbg_=jmb;}
   
   std::string getId()const{return id_;}
   std::string getfirstName()const{return firstName_;}
