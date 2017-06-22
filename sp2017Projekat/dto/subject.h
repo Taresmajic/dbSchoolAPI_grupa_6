@@ -1,6 +1,7 @@
 #ifndef SUBJECT_H_
 #define SUBJECT_H_
 #include<string>
+#include<iostream>
 
 class subject{
 private:
@@ -33,6 +34,8 @@ public:
   }
 
 };
-
+std::ostream& operator << (std::ostream& out,const subject& su){
+  out << su.getId() << su.getName() << su.getEcts() << su.getAbb()<< std::endl;
+  return out;}
 
 #endif
