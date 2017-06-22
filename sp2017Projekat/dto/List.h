@@ -80,23 +80,34 @@ public:
     size_++;
   return *this;
   }
-  List& deleteNode(const T& elem){
-    Node<T>* current=first_;
-    Node<T>* previous=nullptr;
-    while(current){
-      if(current->value_==elem){
-        if(current==first_){
-          first_=first_->next_;
-        }else{
+  List& erase(const T& elem){
+    if(first_->value_==elem){
+      Node<T>* temp=first_;
+      first_=first_->next_;
+      if(last_==temp)
+        last_=nullptr;
+      delete temp;
+      --size_;
+    }else{
+      Node<T>* previous=first_;
+      Node<T>* current=first_->next_;
+      while(current!=last_){
+        if(current->value_==elem){
           previous->next_=current->next_;
+          delete current;
+          --size_;
+          break;
         }
+        previous=current;
+        current=current->next_;
+      }
+      if(current==last_ && current->value_==elem){
+        last_=previous;
+        last_->next_=nullptr;
         delete current;
         --size_;
-        break;
       }
     }
-    previous=current;
-    current=current->next_;
     return *this;
   }
   List& insert(const T& elem){
