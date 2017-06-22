@@ -19,7 +19,16 @@ public:
   std::string getname()const{return name_;}
   std::string getects()const{return ects_;}
   std::string getabb()const{return abb_;}
-  
+  bool operator<(const subject& drugi){
+    return id_<drugi.id_;
+  }
+  bool operator>(const subject& drugi){
+    return id_>drugi.id_;
+  }
+  bool operator==(const subject& drugi){
+    return id_==drugi.id_;
+  }
+
 };
 
 
