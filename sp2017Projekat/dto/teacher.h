@@ -18,7 +18,7 @@ std::string getTitle()const{return title_;}
 std::string getDepartmentId()const{return departmentId_;}
 };
 std::ostream& operator << (std::ostream& out,const teacher& t){
-  out << t.getId() << t.getFirstName() << t.getLastName() << t.getBirthdate() << t.getEmail() << t.getGender() << t.getJmbg() << t.getTitle() << t.getdepartmentId() << std::endl;
+  out << t.getId() << t.getFirstName() << t.getLastName() << t.getBirthdate() << t.getEmail() << t.getGender() << t.getJmbg() << t.getTitle() << t.getDepartmentId() << std::endl;
   return out;
 
 #endif
