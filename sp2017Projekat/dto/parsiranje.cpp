@@ -16,7 +16,7 @@ using namespace std;
 
 
 void separate(int &i,string rijecText, string& rijec){
-  while(rijecText[i]!=','&& rijecText[i+1]!='\0'){rijec.push_back(rijecText[i]); i++;}
+  while(rijecText[i]!=','&& rijecText[i]!='\0'){rijec.push_back(rijecText[i]); i++;}
   i++;
 }
 
