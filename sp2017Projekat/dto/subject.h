@@ -22,13 +22,13 @@ public:
   std::string getEcts()const{return ects_;}
   std::string getAbb()const{return abb_;}
   
-  bool operator<(const subject& drugi){
+  bool operator<(const subject& drugi)const{
     return id_<drugi.id_;
   }
-  bool operator>(const subject& drugi){
+  bool operator>(const subject& drugi)const{
     return id_>drugi.id_;
   }
-  bool operator==(const subject& drugi){
+  bool operator==(const subject& drugi)const{
     return id_==drugi.id_;
   }
 
