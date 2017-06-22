@@ -1,6 +1,7 @@
 #ifndef SUBJECTTEACHERS_H_
 #define SUBJECTTEACHERS_H_
 #include <string>
+#include <iostream>
 
 class subjectTeachers{
 
@@ -20,6 +21,9 @@ public:
    
 };
 
+std::ostream& operator << (std::ostream& out,const subjectTeachers& st){
+  out << st.getSubId() << st.getTeacherId() << std::endl;
+  return out;}
 
 
 #endif
