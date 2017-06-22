@@ -32,13 +32,13 @@ public:
   std::string getgender()const{return gender_;}
   std::string getjmbg()const{return jmbg_;}
   
-  bool operator<(const osoba& drugi){
+  bool operator<(const osoba& drugi)const{
     return id_<drugi.id_;
   }
-  bool operator>(const osoba& drugi){
+  bool operator>(const osoba& drugi)const{
     return id_>drugi.id_;
   }
-  bool operator==(const osoba& drugi){
+  bool operator==(const osoba& drugi)const{
     return id_==drugi.id_;
   }
 };
