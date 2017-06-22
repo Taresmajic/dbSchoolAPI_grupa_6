@@ -17,29 +17,29 @@ public:
   osoba(const std::string id,const std::string fn,const std::string ln,const std::string bd,const std::string em,const std::string gd,const std::string jmb):id_(id),firstName_(fn),lastName_(ln), birthdate_(bd),email_(em),gender_(gd),jmbg_(jmb){}
   
   void setId(const std::string id){id_=id;}
-  void setfirstName(const std::string fn){firstName_=fn;}
-  void setlastName(const std::string ln){lastName_=ln;}
+  void setFirstName(const std::string fn){firstName_=fn;}
+  void setLastName(const std::string ln){lastName_=ln;}
   void setBirthdate(const std::string bd){birthdate_=bd;}
   void setEmail(const std::string em){email_=em;}
   void setGender(const std::string gd){gender_=gd;}
   void setJmbg(const std::string jmb){jmbg_=jmb;}
   
   std::string getId()const{return id_;}
-  std::string getfirstName()const{return firstName_;}
-  std::string getlastName()const{return lastName_;}
+  std::string getFirstName()const{return firstName_;}
+  std::string getLastName()const{return lastName_;}
   std::string getbirthdate()const{return birthdate_;}
   std::string getemail()const{return email_;}
   std::string getgender()const{return gender_;}
   std::string getjmbg()const{return jmbg_;}
   
-  bool operator<(const osoba& drugi)const{
-    return id_<drugi.id_;
+  bool operator < (const osoba& drugi)const{
+    return id_ < drugi.id_;
   }
-  bool operator>(const osoba& drugi)const{
-    return id_>drugi.id_;
+  bool operator > (const osoba& drugi)const{
+    return id_ > drugi.id_;
   }
-  bool operator==(const osoba& drugi)const{
-    return id_==drugi.id_;
+  bool operator == (const osoba& drugi)const{
+    return id_ == drugi.id_;
   }
 };
 
