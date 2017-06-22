@@ -10,11 +10,11 @@ public:
   department(){}
   department(const std::string id,const std::string name):id_(id),name_(name){}
   
-  void setid(const std::string id){id_=id;}
-  void setname(const std::string name){name_=name;}
+  void setId(const std::string id){id_=id;}
+  void setName(const std::string name){name_=name;}
   
-  std::string getid()const{return id_;}
-  std::string getname()const{return name_;}
+  std::string getId()const{return id_;}
+  std::string getName()const{return name_;}
   
   bool operator<(const department& drugi)const{
     return id_<drugi.id_;
