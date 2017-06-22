@@ -1,6 +1,7 @@
 #ifndef DEPSUB_H_
 #define DEPSUB_H_
 #include <string>
+#include <iostream>
 class depSub{
 private:
  std::string departmentId_, subjectId_,studyYear_, studySemester_;
@@ -23,6 +24,9 @@ public:
   
 };
 
+std::ostream& operator << (std::ostream& out,const depSub& ds){
+  out << ds.getDeptId() << ds.getSubId() <<  ds.getStudyYear() << ds.getSemester() <<std::endl;
+  return out;}
 
 
 
