@@ -30,6 +30,15 @@ public:
   std::string getemail()const{return email_;}
   std::string getgender()const{return gender_;}
   std::string getjmbg()const{return jmbg_;}
+  bool operator<(const osoba& drugi){
+    return id_<drugi.id_;
+  }
+  bool operator>(const osoba& drugi){
+    return id_>drugi.id_;
+  }
+  bool operator==(const osoba& drugi){
+    return id_==drugi.id_;
+  }
 };
 
 
