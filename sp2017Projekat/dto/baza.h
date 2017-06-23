@@ -45,7 +45,7 @@ public:
     return std::string{};
   }
   //Metod vraca ime+prezime teachera koji je na odredjenom predmetu
-  std::string getSubjectTeacher(std::string& subjectID)const{
+  std::string getSubjectTeacher(const std::string& subjectID)const{
     for(int i=0;i<serviceSubjectTeachers.size();++i){
       if(serviceSubjectTeachers[i].getSubId()==subjectID){
         return getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getFirstName() + 
@@ -82,7 +82,7 @@ void studentisasmjera(const Vektor<student>& vec){
 }
 
 
-// Ispis svih studenata sa nekog predmeta.   //***getStudentEval ***subID 
+// Ispis svih studenata sa nekog predmeta.   //***getStudentEval  
 void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
   for(auto i=0;i<vec.size();++i){
     std::cout << "Id: " <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "First Name: "  << vec[i].getFirstName() <<"\t"<< "Eval: "  << getStudentEval(vec[i].getId()) << "\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << "Teacher: "  << getSubjectTeacher(subId) << std::endl ;
