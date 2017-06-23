@@ -8,7 +8,7 @@
 #include"depSub.h"
 #include"studentsSubjectsTeachers.h"
 #include"department.h"
-
+#include"Vektor.h"
 
 class Base{
 private:
@@ -66,7 +66,35 @@ public:
 
   //  Ispisi keno su poslije ovog komentara... kapiras
   
+ // Ispis za sve studente, ispisuje id, prezime, ime, department.
+void svistudenti(const Vektor<student>& vec){
+  for(auto i=0;i<vec.size();++i){
+    std:: cout<< "Id: "  <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "\t" << "First Name: "  << vec[i].getFirstName() <<"\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << std::endl;
+  }
+}
 
+
+// Ispis za sve studente sa nekog smjera.
+void studentisasmjera(const Vektor<student>& vec){
+  for(auto i=0;i<vec.size();++i){
+    std::cout<<"Id: "  << vec[i].getId() << "\t" <<"Last Name: "  << vec[i].getLastName() << "\t" << "First Name: "  << vec[i].getFirstName() << std::endl ;
+  }
+}
+
+
+// Ispis svih studenata sa nekog predmeta.   //***getStudentEval ***subID 
+void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
+  for(auto i=0;i<vec.size();++i){
+    std::cout << "Id: " <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "First Name: "  << vec[i].getFirstName() <<"\t"<< "Eval: "  << getStudentEval(vec[i].getId()) << "\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << "Teacher: "  << getSubjectTeacher(subId) << std::endl ;
+  }
+}
+
+// Ispis svih predmeta.
+void svipredmeti(const Vektor<teacher> & vec){
+  for(auto i=0; i<vec.size() ; ++i){
+    std::cout << "Id: " << vec[i].getId()<< "\t" << "Last Name: " << vec[i].getLastName() << "\t" << "First Name: " << vec[i].getFirstName() << "\t" << "Department:" << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
+  }
+}
   //kraj ispisa
   
 

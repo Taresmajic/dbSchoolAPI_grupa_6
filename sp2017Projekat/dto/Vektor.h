@@ -9,7 +9,7 @@ int cap_;
 int size_;
 T* elem_;
 public:
- int size(){return size_;}
+ int size()const{return size_;}
  bool isFull(){return cap_==size_+1;}
  Vektor(){}
  Vektor(int cap=10):cap_(cap),size_(0),elem_(new T[cap_]){}
