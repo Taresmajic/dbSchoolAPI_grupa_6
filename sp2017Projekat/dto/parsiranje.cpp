@@ -17,7 +17,7 @@ using namespace std;
 
 void separate(int &i,string rijecText, string& rijec){
   while(rijecText[i]!=','&& rijecText[i]!='\0'){rijec.push_back(rijecText[i]); i++;}
-  i++;
+  i++;i++;
 }
 
 //student
@@ -113,12 +113,32 @@ void parsiraj(List<subjectTeachers> &r,string l){
   separate(i,l,tid);
   r.insert(subjectTeachers(sid,tid));
 }
+
+//ispisStudent
+void pokus(List<student>& b){
+  ofstream st;
+  st.open("../db/students.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getId() <<", "<< b[i].getFirstName()<< ", "  << b[i].getLastName() << ", "  << b[i].getBirthdate() << ", "  << b[i].getEmail() << ", "  << b[i].getGender() << ", " << b[i].getJmbg() << std::endl; 
+  }
+  st.close();
+} 
+
+
+
+
+
 int main (){
-  List<teacher> tch;
-  fstream fajl("../db/teachers.txt");
+  student pokusni("3","Keno","Mazal","14.02.1995","kenan.mazalovic@fet.ba","M","1402995180043","1");
+  List<student> tch;
+  student zabrisanje("1");
+  fstream fajl("../db/students.txt");
   string ko;
   while(getline(fajl,ko))
     parsiraj(tch,ko);
-  cout<<tch[0];
+  tch.insert(pokusni);
+  tch.erase(zabrisanje);
+ pokus(tch);
+   
 
 }
