@@ -1,7 +1,25 @@
 #ifndef VEKTOR_H_
 #define VEKTOR_H_
 #include<functional>
+
 #include "List.h"
+#include "osoba.h"
+#include "student.h"
+#include "teacher.h"
+#include "subject.h"
+
+auto Poprezimenus=[](student a,student b){
+  return a.getLastName()<b.getLastName();
+};
+
+auto Poprezimenut=[](teacher a,teacher b){
+  return a.getLastName()<b.getLastName();
+};
+
+auto Poid=[](subject a,subject b){
+  return a.getId()<b.getId();
+};
+
 template<typename T>
 class Vektor{
 private:

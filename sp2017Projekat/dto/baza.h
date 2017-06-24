@@ -35,6 +35,15 @@ public:
     }
     return std::string{};
   }
+  //Metod koji vraca smijer a uzima id predmeta
+  department getSubjectDepartment(const std::string& subjectID){
+    for(int i=0;i<serviceDepSub.size();++i){
+      if(serviceDepSub[i].getSubId()==subjectID){
+        return getDepartmentById(serviceDepSub[i].getDeptId());
+      }
+    }
+    return department{};
+  }
 
   // Metod vraca kontejner studentsubjectteacher-a a uzima student id
   
@@ -145,15 +154,70 @@ void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
   }
 }
 
-// Ispis svih predmeta.
-void svipredmeti(const Vektor<teacher> & vec){
+// Ispis svih profesora.
+void sviprofesori(const Vektor<teacher> & vec){
   for(auto i=0; i<vec.size() ; ++i){
     std::cout << "Id: " << vec[i].getId()<< "\t" << "Last Name: " << vec[i].getLastName() << "\t" << "First Name: " << vec[i].getFirstName() << "\t" << "Department:" << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
   }
 }
+
+// ispis svih predmeta.
+void svipredmeti(const Vektor<subject>& vec){
+  for(auto i=0;i<vec.size();++i){
+    std::cout << "Id: " << vec[i].getId() << "\t"<<"Name: " << vec[i].getName() << "\t"<<"Ects: " <<vec[i].getEcts() << "\t" << "Abbreviation: " << vec[i].getAbb() <<"\t"<<"Department: "<<getSubjectDepartment(vec[i].getId()).getName() << std::endl;
+  }
+}
   //kraj ispisa
-  
-  //Insert metode
+
+  //ovde funkcije koje vracaju vektor za ispis prethodni
+
+  //funkcija vraca vektor za ispisivanje svih studenata.
+Vektor<student> Makesvistudenti(){
+  Vektor<student> st(studentList.size());
+    st=studentList;
+    st.sort(Poprezimenus);
+    return st;
+}
+
+  //funkcija vraca vektor studenata sa smjera.
+Vektor<student> MakeStudentisasmjera(const std::string kojismjer){
+  Vektor<student> st(studentList.size());
+    for(int i=0;i<studentList.size();++i)
+      { if(studentList[i].getDepartmentId()==kojismjer)
+        st.push(studentList[i]);}
+      st.sort(Poprezimenus);
+    return st;
+  }
+
+  //Funkcija vraca vektor svih studenata sa predmeta.
+Vektor<student> Makesvisapredmeta(const std::string kojipredmet){
+  Vektor<student> st(studentList.size());
+   for(int i=0;i<studentList.size();++i){  
+     List<studentsSubjectsTeachers> lista=getAllSubjects(st[i].getId());
+     for(int j=0;j<lista.size();++j)
+      {if(lista[j].getSubId()==kojipredmet)
+       st.push(studentList[i]);}
+    }  
+  st.sort(Poprezimenus);
+  return st;
+ }
+
+  //Funkcija vraca vektor svih teachera.
+Vektor<teacher> Makesviprofesori(){
+  Vektor<teacher> tch(teacherList.size());
+  tch=teacherList;
+  tch.sort(Poprezimenut);
+  return tch;
+  }
+
+  //Funkcija vraca vektor svih predmeta.
+Vektor<subject> Makesvipredmeti(){
+  Vektor<subject> su(subjectList.size());
+  su=subjectList;
+  su.sort(Poid);
+  return su;
+}
+ //Insert metode
 
 bool existJMBG(const std::string &jmbg)const{
   for(int i=0;i<studentList.size();++i){
