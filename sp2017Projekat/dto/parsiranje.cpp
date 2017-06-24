@@ -136,7 +136,7 @@ void depsubtxt(List<depSub>& b){
 
 
 //Omogucivanje rada sa datotekom students-subjects-teachers.txt
-void depsubtchtxt(List<studentsSubjectsTeachers>& b){
+void studsubtchtxt(List<studentsSubjectsTeachers>& b){
   ofstream st;
   st.open("../db/students-subjects-teachers.txt");
   for(auto i=0;i<b.size();++i){

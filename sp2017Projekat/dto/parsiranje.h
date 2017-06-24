@@ -26,19 +26,10 @@ void parsiraj(List<subjectTeachers>&,std::string);
 void stutxt(List<student>&);
 void deptxt(List<department>&);
 void depsubtxt(List<depSub>&);
-void depsubtchtxt(List<studentsSubjectsTeachers>&);
+void studsubtchtxt(List<studentsSubjectsTeachers>&);
 void subtxt(List<subject>&);
-void subtch(List<subjectTeachers>&);
+void subtchtxt(List<subjectTeachers>&);
 void tchhtxt(List<teacher>&);
-
-
-
-
-
-
-
-
-
 
 
 #endif

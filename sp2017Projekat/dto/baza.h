@@ -69,9 +69,18 @@ Base(){
  while(getline(subteachfajl,subti))
    parsiraj(serviceSubjectTeachers,subti);
 }
-  Base(const List<student> a){studentList=a;}
-  ~Base(){}
 
+  ~Base(){}
+// Metod koji upisuhe sve liste u txt fajlove
+  void alltxt(){
+    stutxt(studentList);
+    deptxt(departmentList);
+    depsubtxt(serviceDepSub);
+    studsubtchtxt(serviceStudentsSubjectsTeachers);
+    subtxt(subjectList);
+    subtchtxt(serviceSubjectTeachers);
+    tchhtxt(teacherList);
+  }
   
   //Metod vraca department preko studentovog id-a
   std::string getStudentDepartment(const std::string& studentID)const{
