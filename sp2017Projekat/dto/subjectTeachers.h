@@ -9,7 +9,7 @@ private:
   std::string subjectId_, teacherId_; 
 public:
   subjectTeachers(){};
-  subjectTeachers(const std::string &subId,std::string &teacherId):subjectId_(subId),teacherId_(teacherId){}
+  subjectTeachers(const std::string &subId,const std::string &teacherId):subjectId_(subId),teacherId_(teacherId){}
   ~subjectTeachers(){};
   std::string getSubId()const{return subjectId_;}
   std::string getTeacherId()const{return teacherId_;}
