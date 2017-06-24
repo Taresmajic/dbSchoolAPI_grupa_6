@@ -276,7 +276,77 @@ bool insertTeacher(teacher dummyTeacher){
 
 
 
+
+bool insertDepartment(department tempDep){
+  for(int i=0;i<departmentList.size();++i){
+    if(departmentList[i].getName()==tempDep.getName())
+      return false;
+  }
+  tempDep.setId(idSeter(departmentList));
+  departmentList.insert(tempDep);
+  return true;
+}
+// insertujemo student subject teacher
+bool insertSST(studentsSubjectsTeachers dummySST){
+  for(int i=0;i<serviceStudentsSubjectsTeachers.size();++i){
+    if(serviceStudentsSubjectsTeachers[i].getStudId()==dummySST.getStudId() &&
+        serviceStudentsSubjectsTeachers[i].getSubId()==dummySST.getSubId()){
+      return false;
+    }
+  }
+    serviceStudentsSubjectsTeachers.insert(dummySST);
+    return true;
+  
+}
+
+bool insertSubjectTeacher(subjectTeachers dummyST){
+  for(int i=0;i<serviceSubjectTeachers.size();++i){
+    if(serviceSubjectTeachers[i].getSubId()==dummyST.getSubId()){
+      return false;
+    }
+  }
+  serviceSubjectTeachers.insert(dummyST);
+  return true;
+}
+
+bool insertDepartmentsSubjects(depSub dummyDS){
+  for(int i=0;i<serviceDepSub.size();++i){
+    if(serviceDepSub[i].getSubId()==dummyDS.getSubId()){
+      return false;
+    }
+  }
+  serviceDepSub.insert(dummyDS);
+  return true;
+}
+
+
   //Kraj insert metoda
+  
+  //Update metodi
+ //Unutar maina vrsi se provjera sta mijenjamo kod teachera i studenta
+ 
+void setTeacher(const teacher & tempTeacher, int index){ //metod uzima teachera i indeks na koji ga smjesta
+  teacherList[index]=tempTeacher;
+} 
+ void setStudent(const student & tempStud, int index){ //metod uzima studenta  i indeks na koji ga smjesta
+  studentList[index]=tempStud;
+} 
+ 
+ void setSubject(const subject & tempSub, int index){ //metod uzima subject i indeks na koji ga smjesta
+  subjectList[index]=tempSub;
+} 
+  void setSST(const studentsSubjectsTeachers & tempSST, int index){ //metod uzima studentSubjectTeacher i indeks na koji ga smjesta
+  serviceStudentsSubjectsTeachers[index]=tempSST;
+} 
+  void setSubTeacher(const subjectTeachers & tempST, int index){ //metod uzima subjecta i teachera i indeks na koji ga smjesta
+  serviceSubjectTeachers[index]=tempST;
+} 
+ void setDepSub(const depSub & tempDS, int index){ //metod uzima depSUb i indeks na koji ga smjesta
+  serviceDepSub[index]=tempDS;
+} 
+ 
+ 
+  //Kraj update metoda
 };
 
 
