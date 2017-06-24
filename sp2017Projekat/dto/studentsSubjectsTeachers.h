@@ -7,8 +7,7 @@ private:
   std::string studentId_,subjectId_,teacherId_,evaluation_,date_;
 public:
   studentsSubjectsTeachers(){};
-  studentsSubjectsTeachers(const std::string &stud, std::string &sub, std::string &teacher, std::string &eval,
-      std::string &date):studentId_(stud),subjectId_(sub),teacherId_(teacher),evaluation_(eval),date_(date){};
+  studentsSubjectsTeachers(const std::string &stud,const std::string &sub,const std::string &teacher,const std::string &eval,const std::string &date):studentId_(stud),subjectId_(sub),teacherId_(teacher),evaluation_(eval),date_(date){};
   ~studentsSubjectsTeachers(){}  
   std::string getStudId() const{return studentId_;}  
   std::string getSubId() const{return subjectId_;}  
