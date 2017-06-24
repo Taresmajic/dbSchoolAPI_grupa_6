@@ -8,7 +8,7 @@ private:
 public:
 
   depSub(){};
-  depSub(const std::string &deptId,std::string  &subId,std::string &studyYear,std::string &studySemester):departmentId_(deptId),subjectId_(subId),studyYear_(studyYear),studySemester_(studySemester){};
+  depSub(const std::string &deptId,const std::string  &subId,const std::string &studyYear,const std::string &studySemester):departmentId_(deptId),subjectId_(subId),studyYear_(studyYear),studySemester_(studySemester){};
   ~depSub(){};
   std::string getDeptId() const{return departmentId_;}  
   std::string getSubId() const{return subjectId_;}
