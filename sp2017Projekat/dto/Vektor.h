@@ -28,7 +28,7 @@ int size_;
 T* elem_;
 public:
  int size()const{return size_;}
- bool isFull(){return cap_==size_+1;}
+ bool isFull(){return cap_==size_;}
  Vektor(){}
  Vektor(int cap=10):cap_(cap),size_(0),elem_(new T[cap_]){}
  Vektor(const Vektor<T>& b){
@@ -40,7 +40,7 @@ public:
  }
  void push(const T& b){
      if(isFull())
-     throw int(-1);
+     throw std::string("puna");
    elem_[size_++]=b;
  }
  Vektor<T> operator=(const List<T>& b){

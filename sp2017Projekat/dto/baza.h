@@ -205,10 +205,10 @@ void studentisasmjera(const Vektor<student>& vec){
 }
 
 
-// Ispis svih studenata sa nekog predmeta.   //***getStudentEval  
+// Ispis svih studenata sa nekog predmeta.    **************
 void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
-  for(auto i=0;i<vec.size();++i){
-    std::cout << "Id: " <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "First Name: "  << vec[i].getFirstName() <<"\t"<< "Eval: "  << getStudentEval(vec[i].getId(),subId) << "\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << "Teacher: "  << getSubjectTeacher(subId) << std::endl ;
+  for(int i=0;i<vec.size();++i){
+std::cout << "Id: " << vec[i].getId()  << "Last name: " << vec[i].getLastName() << "First Name: " << vec[i].getFirstName() << "Eval: " << getStudentEval(vec[i].getId(),subId) <<"Department: " << getStudentDepartment(vec[i].getId()) << "Teacher: " << getSubjectTeacher(subId) << std::endl;
   }
 }
 
@@ -221,15 +221,29 @@ void sviprofesori(const Vektor<teacher> & vec){
 
 // ispis svih predmeta.
 void svipredmeti(const Vektor<subject>& vec){
-  for(auto i=0;i<vec.size();++i){
-    std::cout << "Id: " << vec[i].getId() << "\t"<<"Name: " << vec[i].getName() << "\t"<<"Ects: " <<vec[i].getEcts() << "\t" << "Abbreviation: " << vec[i].getAbb() <<"\t"<<"Department: "<<getSubjectDepartment(vec[i].getId()).getName() << std::endl;
-  }
+ for(int i=0;i<vec.size();++i)
+{std::cout <<"Id: " << vec[i].getId() << "\t" << "Name: " << vec[i].getName() << "\t" << "Ects: " << vec[i].getEcts() << "\t" << "Abbreviation: " << vec[i].getAbb() << std::endl;
+}}
+
+// ispis svih departmenta
+void svidepartmenti(const Vektor<department>& vec){
+  for(int i=0;i<vec.size();++i)
+  {std::cout << "Id: " << vec[i].getId() << "\t" << "Name: " << vec[i].getName() << std::endl;}
 }
   //kraj ispisa
 
   //ovde funkcije koje vracaju vektor za ispis prethodni
 
+  //funkcija vraca sve depart vektor.
+Vektor<department> Makesvidepartmenti(){
+  Vektor<department> dp(departmentList.size());
+  dp=departmentList;
+  return dp;
+}
+
+
   //funkcija vraca vektor za ispisivanje svih studenata.
+  
 Vektor<student> Makesvistudenti(){
   Vektor<student> st(studentList.size());
     st=studentList;
@@ -238,11 +252,14 @@ Vektor<student> Makesvistudenti(){
 }
 
   //funkcija vraca vektor studenata sa smjera.
-Vektor<student> MakeStudentisasmjera(const std::string kojismjer){
+Vektor<student> Makestudentisasmjera(const std::string kojismjer){
   Vektor<student> st(studentList.size());
     for(int i=0;i<studentList.size();++i)
-      { if(studentList[i].getDepartmentId()==kojismjer)
-        st.push(studentList[i]);}
+      { 
+       if(std::stoi(studentList[i].getDepartmentId())==std::stoi(kojismjer))
+        st.push(studentList[i]);
+      }
+  
       st.sort(Poprezimenus);
     return st;
   }
@@ -251,7 +268,7 @@ Vektor<student> MakeStudentisasmjera(const std::string kojismjer){
 Vektor<student> Makesvisapredmeta(const std::string kojipredmet){
   Vektor<student> st(studentList.size());
    for(int i=0;i<studentList.size();++i){  
-     List<studentsSubjectsTeachers> lista=getAllSubjects(st[i].getId());
+     List<studentsSubjectsTeachers> lista=getAllSubjects(studentList[i].getId());
      for(int j=0;j<lista.size();++j)
       {if(lista[j].getSubId()==kojipredmet)
        st.push(studentList[i]);}
