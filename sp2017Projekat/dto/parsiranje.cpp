@@ -119,7 +119,7 @@ void stutxt(List<student>& b){
   ofstream st;
   st.open("../db/students.txt");
   for(auto i=0;i<b.size();++i){
-    st << b[i].getId() <<", "<< b[i].getFirstName()<< ", "  << b[i].getLastName() << ", "  << b[i].getBirthdate() << ", "  << b[i].getEmail() << ", "  << b[i].getGender() << ", " << b[i].getJmbg() << std::endl; 
+    st << b[i].getId() <<", "<< b[i].getFirstName()<< ", "  << b[i].getLastName() << ", "  << b[i].getBirthdate() << ", "  << b[i].getEmail() << ", "  << b[i].getGender() << ", " << b[i].getJmbg() << ", " << b[i].getDepartmentId()  <<std::endl; 
   }
   st.close();
 } 
@@ -184,8 +184,8 @@ void subtchtxt(List<subjectTeachers>& b){
 void tchhtxt(List<teacher>& b){
   ofstream st;
   st.open("../db/teachers.txt");
-  for(auto i=0;i<b.size();++i){
-    st << b[i].getTitle() <<", "<< b[i].getDepartmentId()<< std::endl; 
+for(auto i=0;i<b.size();++i){
+    st << b[i].getId() <<", "<< b[i].getFirstName()<< ", "  << b[i].getLastName() << ", "  << b[i].getBirthdate() << ", "  << b[i].getEmail() << ", "  << b[i].getGender() << ", " << b[i].getJmbg() << ", " << b[i].getTitle() << ", " << b[i].getDepartmentId() <<std::endl; 
   }
   st.close();
 } 
