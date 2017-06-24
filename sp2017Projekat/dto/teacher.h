@@ -1,6 +1,6 @@
 #ifndef TEACHER_H_
 #define TEACHER_H_
-#include<iostream>
+
 #include "osoba.h"
 class teacher : public osoba{
 private:

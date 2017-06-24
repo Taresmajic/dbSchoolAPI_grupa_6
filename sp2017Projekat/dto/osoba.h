@@ -1,7 +1,7 @@
 #ifndef OSOBA_H_
 #define OSOBA_H_
 #include<string>
-
+#include<iostream>
 class osoba{
 private:
   std::string id_;

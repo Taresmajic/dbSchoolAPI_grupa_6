@@ -9,6 +9,7 @@ private:
   std::string name_;
 public:
   department(){}
+  department(const std::string id){id_=id;}
   department(const std::string id,const std::string name):id_(id),name_(name){}
   
   void setId(const std::string id){id_=id;}
@@ -29,7 +30,7 @@ public:
 
 };
 std::ostream& operator << (std::ostream& out,const department& d){
-  out <<d.getId()<< d.getName() << std::endl;
+  out <<d.getId()<<", "<< d.getName() << std::endl;
   return out;}
 
 

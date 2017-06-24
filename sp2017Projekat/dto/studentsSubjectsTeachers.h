@@ -25,7 +25,7 @@ public:
 };
 
 std::ostream& operator << (std::ostream& out,const studentsSubjectsTeachers& sst){
-  out << sst.getStudId() << sst.getSubId() << sst.getTeacherId() << sst.getEval() << sst.getDate() << std::endl;
+  out << sst.getStudId()<<", " << sst.getSubId()<<", " << sst.getTeacherId()<<", " << sst.getEval()<<", " << sst.getDate() << std::endl;
   return out;}
 
 

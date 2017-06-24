@@ -11,6 +11,7 @@ private:
   std::string abb_;
 public:
   subject(){}
+  subject(const std::string id){id_=id;}
   subject(const std::string id,const std::string n,const std::string ects,const std::string ab):id_(id),name_(n),ects_(ects),abb_(ab){}
   
   void setId(const std::string id){id_=id;}
@@ -35,7 +36,7 @@ public:
 
 };
 std::ostream& operator << (std::ostream& out,const subject& su){
-  out << su.getId() << su.getName() << su.getEcts() << su.getAbb()<< std::endl;
+  out << su.getId()<<", " << su.getName()<<", " << su.getEcts()<<", " << su.getAbb()<< std::endl;
   return out;}
 
 #endif
