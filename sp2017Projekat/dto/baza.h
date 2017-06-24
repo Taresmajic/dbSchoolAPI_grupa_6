@@ -127,11 +127,13 @@ Base(){
   //Metod koji vraca ime departmen-a preko id-a
   std::string getDepartmentById(const std::string& depID)const{
     for(int i=0;i<departmentList.size();++i){
-      if(departmentList[i].getId()==depID){
+      
+      if(std::stoi(departmentList[i].getId())==std::stoi(depID)){
         return departmentList[i].getName();
       }
+  
     }
-    return std::string{};
+    return std::string{"none"};
   }
   //Metod vraca ime+prezime teachera koji je na odredjenom predmetu
   std::string getSubjectTeacher(const std::string& subjectID)const{
@@ -189,8 +191,8 @@ Base(){
   
  // Ispis za sve studente, ispisuje id, prezime, ime, department.
 void svistudenti(const Vektor<student>& vec){
-  for(auto i=0;i<vec.size();++i){
-    std:: cout<< "Id: "  <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "\t" << "First Name: "  << vec[i].getFirstName() <<"\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << std::endl;
+  for(int i=0;i<vec.size();++i){
+    std:: cout<< "Id: "  <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "\t" << "First Name: "  << vec[i].getFirstName() <<"\t" << "Department: "  << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
   }
 }
 
