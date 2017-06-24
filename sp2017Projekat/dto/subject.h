@@ -35,8 +35,6 @@ public:
   }
 
 };
-std::ostream& operator << (std::ostream& out,const subject& su){
-  out << su.getId()<<", " << su.getName()<<", " << su.getEcts()<<", " << su.getAbb()<< std::endl;
-  return out;}
+
 
 #endif

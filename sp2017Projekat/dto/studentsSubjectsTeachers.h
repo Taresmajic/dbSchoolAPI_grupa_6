@@ -24,9 +24,6 @@ public:
   bool operator == (const studentsSubjectsTeachers &dummy)const{return studentId_==dummy.studentId_;}
 };
 
-std::ostream& operator << (std::ostream& out,const studentsSubjectsTeachers& sst){
-  out << sst.getStudId()<<", " << sst.getSubId()<<", " << sst.getTeacherId()<<", " << sst.getEval()<<", " << sst.getDate() << std::endl;
-  return out;}
 
 
 #endif

@@ -24,9 +24,6 @@ public:
   
 };
 
-std::ostream& operator << (std::ostream& out,const depSub& ds){
-  out << ds.getDeptId()<<", " << ds.getSubId()<<", " <<  ds.getStudyYear()<<", " << ds.getSemester() <<std::endl;
-  return out;}
 
 
 

@@ -29,9 +29,6 @@ public:
   }
 
 };
-std::ostream& operator << (std::ostream& out,const department& d){
-  out <<d.getId()<<", "<< d.getName() << std::endl;
-  return out;}
 
 
 #endif
