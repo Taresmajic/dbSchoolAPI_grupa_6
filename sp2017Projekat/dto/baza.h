@@ -422,6 +422,39 @@ void setTeacher(const teacher & tempTeacher, int index){ //metod uzima teachera 
  
  
   //Kraj update metoda
+  
+  bool existDep(const std::string &depID){
+  for(int i=0;i<departmentList.size();++i){
+    if(departmentList[i].getId()==depID)
+      return true;
+  }
+  return false;
+}
+bool existStud(const std::string &studID){
+  for(int i=0;i<studentList.size();++i){
+    if(std::stoi(studentList[i].getId())==std::stoi(studID))
+      return true;
+  }
+  return false;
+}
+bool existTeacher(const std::string &teacherID){
+  for(int i=0;i<teacherList.size();++i){
+    if(std::stoi(teacherList[i].getId())==std::stoi(teacherID))
+      return true;
+  }
+  return false;
+}
+bool existSub(const std::string &subID){
+  for(int i=0;i<subjectList.size();++i){
+    if(std::stoi(subjectList[i].getId())==std::stoi(subID))
+      return true;
+  }
+  return false;
+}
+
+//geteri LIsta
+  List<student> getStudentList()const{return studentList;}
+
 };
 
 
