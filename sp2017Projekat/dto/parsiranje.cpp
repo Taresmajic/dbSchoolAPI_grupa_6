@@ -114,8 +114,8 @@ void parsiraj(List<subjectTeachers> &r,string l){
   r.insert(subjectTeachers(sid,tid));
 }
 
-//ispisStudent
-void pokus(List<student>& b){
+//Omogucivanje rada sa datotekom students.txt
+void stutxt(List<student>& b){
   ofstream st;
   st.open("../db/students.txt");
   for(auto i=0;i<b.size();++i){
@@ -124,6 +124,71 @@ void pokus(List<student>& b){
   st.close();
 } 
 
+
+//Omogucivanje rada sa datotekom departments.txt
+void deptxt(List<department>& b){
+  ofstream st;
+  st.open("../db/departments.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getId() <<", "<< b[i].getName()<< std::endl; 
+  }
+  st.close();
+} 
+
+
+//Omogucivanje rada sa datotekom departments-subjects.txt
+void depsubtxt(List<depSub>& b){
+  ofstream st;
+  st.open("../db/departments-subjects.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getDeptId() <<", "<< b[i].getSubId()<< ", " << b[i].getStudyYear() << ", "<< b[i].getSemester() << std::endl; 
+  }
+  st.close();
+} 
+
+
+//Omogucivanje rada sa datotekom students-subjects-teachers.txt
+void depsubtchtxt(List<studentsSubjectsTeachers>& b){
+  ofstream st;
+  st.open("../db/students-subjects-teachers.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getStudId() <<", "<< b[i].getSubId()<< ", " << b[i].getTeacherId() << ", "<< b[i].getEval() << ", " << b[i].getDate()  << std::endl; 
+  }
+  st.close();
+} 
+
+
+//Omogucivanje rada sa datotekom subjects.txt
+void subtxt(List<subject>& b){
+  ofstream st;
+  st.open("../db/subjects.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getId() <<", "<< b[i].getName()<< ", " << b[i].getEcts() << ", "<< b[i].getAbb() << std::endl; 
+  }
+  st.close();
+} 
+
+
+//Omogucivanje rada sa datotekom subjects-teachers.txt
+void subtchtxt(List<subjectTeachers>& b){
+  ofstream st;
+  st.open("../db/subjects-teachers.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getSubId() <<", "<< b[i].getTeacherId()<< std::endl; 
+  }
+  st.close();
+} 
+
+
+//Omogucivanje rada sa datotekom teachers.txt
+void tchhtxt(List<teacher>& b){
+  ofstream st;
+  st.open("../db/teachers.txt");
+  for(auto i=0;i<b.size();++i){
+    st << b[i].getTitle() <<", "<< b[i].getDepartmentId()<< std::endl; 
+  }
+  st.close();
+} 
 
 
 
@@ -138,7 +203,7 @@ int main (){
     parsiraj(tch,ko);
   tch.insert(pokusni);
   tch.erase(zabrisanje);
- pokus(tch);
+ stutxt(tch);
    
 
 }
