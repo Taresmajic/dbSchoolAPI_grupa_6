@@ -35,6 +35,30 @@ public:
     }
     return std::string{};
   }
+
+  // Metod vraca kontejner studentsubjectteacher-a a uzima student id
+  
+  List<studentsSubjectsTeachers> getAllSubjects(const std::string& studentID){
+   List<studentsSubjectsTeachers> tempList;
+    for(int i=0;i<serviceStudentsSubjectsTeachers.size();++i){
+      if(serviceStudentsSubjectsTeachers[i].getStudId()==studentID){
+        tempList.insert(serviceStudentsSubjectsTeachers[i]);
+      }
+    }
+    return tempList;
+  }
+
+  // Metod vraca eval predmeta a uzima studentID i subjectID
+  
+  std::string getStudentEval(const std::string &studentID, const std::string &subjectID){
+    for(int i=0; i<serviceStudentsSubjectsTeachers.size();++i){
+      if(serviceStudentsSubjectsTeachers[i].getStudId()==studentID && serviceStudentsSubjectsTeachers[i].getSubId()==subjectID)
+        return serviceStudentsSubjectsTeachers[i].getEval();
+    }
+    return std::string{};
+  }
+
+
   //Metod koji vraca ime departmen-a preko id-a
   std::string getDepartmentById(const std::string& depID)const{
     for(int i=0;i<departmentList.size();++i){
@@ -55,7 +79,7 @@ public:
     return std::string{};
   }
   //Metod vraca teacher-a po ID-u
-  teacher getTeacherById(std::string teacherID)const{
+  teacher getTeacherById(const std::string &teacherID)const{
     for(int i=0;i<teacherList.size();++i){
       if(teacherList[i].getId()==teacherID){
         return teacherList[i];
@@ -63,6 +87,38 @@ public:
     }
     return teacher{};
   }
+
+  // Metod koji vraca studenta a uzima njegov ID
+  
+  student getStudentById(const std::string &studentID)const{
+    for(int i=0;i<studentList.size();++i){
+      if(studentList[i].getId()==studentID){
+        return studentList[i];
+      }
+    }
+    return student{};
+  }
+
+  // Metod koji vraca subject a uzima njegov ID
+  
+  subject getSubjectById(const std::string &subjectID)const{
+    for(int i=0;i<subjectList.size();++i){
+      if(subjectList[i].getId()==subjectID)
+        return subjectList[i];
+    }
+    return subject{};
+  }
+
+  // Metod koji vraca subject info a uzima subject ID
+  
+  depSub getSubjectInfo(const std::string & subjectID)const{
+    for(int i=0;i<serviceDepSub.size();++i){
+      if(serviceDepSub[i].getSubId()==subjectID)
+        return serviceDepSub[i];
+    }
+    return depSub{};
+  }
+  
 
   //  Ispisi keno su poslije ovog komentara... kapiras
   
@@ -85,7 +141,7 @@ void studentisasmjera(const Vektor<student>& vec){
 // Ispis svih studenata sa nekog predmeta.   //***getStudentEval  
 void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
   for(auto i=0;i<vec.size();++i){
-    std::cout << "Id: " <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "First Name: "  << vec[i].getFirstName() <<"\t"<< "Eval: "  << getStudentEval(vec[i].getId()) << "\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << "Teacher: "  << getSubjectTeacher(subId) << std::endl ;
+    std::cout << "Id: " <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "First Name: "  << vec[i].getFirstName() <<"\t"<< "Eval: "  << getStudentEval(vec[i].getId(),subId) << "\t" << "Department: "  << getStudentDepartment(vec[i].getId()) << "Teacher: "  << getSubjectTeacher(subId) << std::endl ;
   }
 }
 
@@ -97,7 +153,66 @@ void svipredmeti(const Vektor<teacher> & vec){
 }
   //kraj ispisa
   
+  //Insert metode
 
+bool existJMBG(const std::string &jmbg)const{
+  for(int i=0;i<studentList.size();++i){
+    if(studentList[i].getJmbg()==jmbg)
+      return true;
+  }
+  return false;
+}
+template <typename T>
+std::string idSeter(const List<T> &tempList){
+ int i;
+  for(i=1;i<=tempList.size();++i){
+    if(tempList[i-1].getId()!=std::to_string(i)){
+      return std::to_string(i);
+    }
+  }
+  return std::to_string(i);
+}
+
+bool insertSubject(subject dummySub){
+  for(int i=0;i<subjectList.size();++i){
+    if(dummySub.getName()==subjectList[i].getName())
+      return false;
+  }
+  dummySub.setId(idSeter(subjectList)); //setujemo ID
+  subjectList.insert(dummySub);
+  return true;
+}
+
+bool insertStudent(student dummyStud){
+  if(!existJMBG(dummyStud.getJmbg())){
+    dummyStud.setId(idSeter(studentList));//setujemo ID
+    studentList.insert(dummyStud);
+    return true;
+  }
+  else{
+    return false;
+  }
+  
+}
+
+bool insertTeacher(teacher dummyTeacher){
+  if(!existJMBG(dummyTeacher.getJmbg())){
+    dummyTeacher.setId(idSeter(teacherList));//setujemo ID
+    teacherList.insert(dummyTeacher);
+    return true;
+  }
+  else{
+    return false;
+  }
+  
+}
+
+
+
+
+
+
+  //Kraj insert metoda
 };
 
 
