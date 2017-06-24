@@ -208,9 +208,10 @@ void studentisasmjera(const Vektor<student>& vec){
 // Ispis svih studenata sa nekog predmeta.    **************
 void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
   for(int i=0;i<vec.size();++i){
-std::cout << "Id: " << vec[i].getId()  << "Last name: " << vec[i].getLastName() << "First Name: " << vec[i].getFirstName() << "Eval: " << getStudentEval(vec[i].getId(),subId) <<"Department: " << getStudentDepartment(vec[i].getId()) << "Teacher: " << getSubjectTeacher(subId) << std::endl;
+std::cout << "Id: " << vec[i].getId() << "\t"  << "Last name: " << vec[i].getLastName() << "\t" << "First Name: " << vec[i].getFirstName() << "\t" << "Eval: " << getStudentEval(vec[i].getId(),subId) << "\t" <<"Department: " << getStudentDepartment(vec[i].getId()) << "\t" << "Teacher: " << getSubjectTeacher(subId) << std::endl;
   }
 }
+
 
 // Ispis svih profesora.
 void sviprofesori(const Vektor<teacher> & vec){
