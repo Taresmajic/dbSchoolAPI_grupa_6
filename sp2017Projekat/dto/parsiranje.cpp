@@ -1,16 +1,4 @@
-#include "List.h"
-#include "student.h"
-#include "teacher.h"
-#include "osoba.h"
-#include "subject.h"
-#include "department.h"
-#include "depSub.h"
-#include "studentsSubjectsTeachers.h"
-#include "subjectTeachers.h"
-
-#include<string>
-#include<fstream>
-#include<iostream>
+#include "parsiranje.h"
 using namespace std;
 
 
@@ -193,17 +181,3 @@ for(auto i=0;i<b.size();++i){
 
 
 
-int main (){
-  student pokusni("3","Keno","Mazal","14.02.1995","kenan.mazalovic@fet.ba","M","1402995180043","1");
-  List<student> tch;
-  student zabrisanje("1");
-  fstream fajl("../db/students.txt");
-  string ko;
-  while(getline(fajl,ko))
-    parsiraj(tch,ko);
-  tch.insert(pokusni);
-  tch.erase(zabrisanje);
- stutxt(tch);
-   
-
-}

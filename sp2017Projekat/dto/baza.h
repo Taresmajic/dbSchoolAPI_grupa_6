@@ -9,6 +9,7 @@
 #include"studentsSubjectsTeachers.h"
 #include"department.h"
 #include"Vektor.h"
+#include"parsiranje.h"
 
 class Base{
 private:
@@ -22,9 +23,55 @@ List<subjectTeachers> serviceSubjectTeachers;
 List<depSub> serviceDepSub;
 List<studentsSubjectsTeachers> serviceStudentsSubjectsTeachers;
 public:
-  Base(){}
+
+// Konstruktor za ubacivanje txt u liste
+Base(){
+
+  // Ucitavanje za students.txt
+  std::fstream studfajl("../db/students.txt");
+ std::string studi;
+ while(getline(studfajl,studi))
+   parsiraj(studentList,studi);
+
+ // Ucitavanje za teachers.txt
+ std::fstream teachfajl("../db/teachers.txt");
+ std::string teachi;
+ while(getline(teachfajl,teachi))
+   parsiraj(teacherList,teachi);
+
+ // Ucitavanje za departments.txt
+ std::fstream depfajl("../db/departments.txt");
+ std::string depi;
+ while(getline(depfajl,depi))
+   parsiraj(departmentList,depi);
+
+ // Ucitavanje za subjects.txt
+ std::fstream subfajl("../db/subjects.txt");
+ std::string subi;
+ while(getline(subfajl,subi))
+   parsiraj(subjectList,subi);
+
+ // Ucitavanje za departments-subjects.txt
+ std::fstream depsubfajl("../db/departmens-subjects.txt");
+ std::string depsubi;
+ while(getline(depsubfajl,depsubi))
+   parsiraj(serviceDepSub,depsubi);
+
+ // Ucitavanje za students-subjects-teachers.txt
+ std::fstream sstifajl("../db/students-subjects-teachers.txt");
+ std::string sstii;
+ while(getline(sstifajl,sstii))
+   parsiraj(serviceStudentsSubjectsTeachers,sstii);
+
+ // Ucitavanje za subjects-teachers.txt
+ std::fstream subteachfajl("../db/subjects-teachers.txt");
+ std::string subti;
+ while(getline(subteachfajl,subti))
+   parsiraj(serviceSubjectTeachers,subti);
+}
+  Base(const List<student> a){studentList=a;}
   ~Base(){}
-  //Konstruktor za ubacivanje txt u liste
+
   
   //Metod vraca department preko studentovog id-a
   std::string getStudentDepartment(const std::string& studentID)const{
