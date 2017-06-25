@@ -110,6 +110,61 @@ void insertSubjectMenu(Base& temp){
 
 }
 
+void linkStudentSubject(Base& temp){
+  studentsSubjectsTeachers tempSST;
+  system("clear");
+  
+  std::string studentID{"uslovni"};
+  do{
+    if(studentID!="uslovni")
+      std::cout << red << "Invalid ID!" << reset << std::endl;
+  std::cout << "Select student (by id): \n";
+  temp.svistudenti(temp.Makesvistudenti());
+  std::cout <<"Your option: ";
+  std::cin >> studentID;
+  }while(!temp.existStud(studentID));
+  tempSST.setStudId(studentID);
+  
+  system("clear");
+  
+  std::cout<< red << temp.getStudentById(studentID).getFirstName() << " " << temp.getStudentById(studentID).getLastName() << reset ; 
+  std::cout << "\n";
+  
+  std::string input("uslovni");
+  do{
+  if(input!="uslovni")
+    std::cout << red << "Invalid ID!" << reset << std::endl;
+  std::cout << "Subject list: \n";
+  temp.svipredmeti(temp.Makesvipredmeti());
+  
+  std::cout << "Your option: ";
+  std::cin >> input;
+  }while(!temp.existSub(input));
+  tempSST.setSubId(input); 
+  subjectTeachers dummy=temp.getSubjectTeacher(input); 
+  tempSST.setTeacherId(dummy.getTeacherId());
+  
+  system("clear");
+  input=std::string{"uslovni"};
+  do{
+  if(input!="uslovni")
+    std::cout <<red << "Invalid evaluation(must be between 6 and 10)!" << reset << std::endl;
+  std::cout << "Insert evaluation for chosen subject: ";
+  std::cin >> input;
+
+  }while(std::stoi(input)<6 || std::stoi(input)>10);
+  
+  tempSST.setEval(input);
+  system("clear");
+  std::cout << "Insert date(DD/MM/YY) when student got evaluated: ";
+  std::cin >> input;
+  tempSST.setDate(input);
+  temp.insertSST(tempSST);
+
+  
+  
+}
+
 
 
 
