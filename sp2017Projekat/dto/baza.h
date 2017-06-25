@@ -139,8 +139,7 @@ Base(){
   std::string getSubjectTeacher(const std::string& subjectID)const{
     for(int i=0;i<serviceSubjectTeachers.size();++i){
       if(serviceSubjectTeachers[i].getSubId()==subjectID){
-        return getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getFirstName() + 
-          getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getLastName(); 
+        return getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getFirstName() + " " + getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getLastName(); 
       }
     }
     return std::string{};
@@ -227,9 +226,9 @@ void svipredmeti(const Vektor<subject>& vec){
 }}
 
 // ispis svih departmenta
-void svidepartmenti(const Vektor<department>& vec){
-  for(int i=0;i<vec.size();++i)
-  {std::cout << "Id: " << vec[i].getId() << "\t" << "Name: " << vec[i].getName() << std::endl;}
+void svidepartmenti(){
+  for(int i=0;i<departmentList.size();++i)
+  {std::cout << "Id: " << departmentList[i].getId() << "\t" << "Name: " << departmentList[i].getName() << std::endl;}
 }
   //kraj ispisa
 

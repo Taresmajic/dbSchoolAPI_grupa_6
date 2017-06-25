@@ -50,12 +50,13 @@ void insertSubjectMenu(Base& temp){
   
   }
   while(!temp.existDep(input));
+  depSub tempDS;
   //linkanje Departments - Subjects
-  temp.setDeptId(input);
+  //tempDS.setDeptId();
  // temp.setSubId(); treba getovati ID subjecta da se proslijedi u setSubId()
   system("clear");
   std::cout<<"Subject's department is "<<red<<tempDS.getDeptId()<<reset<<"\n";
-  temp.insertStudent(dummyStud);
+  temp.insertSubject(dummySub);
 
 
 
@@ -131,10 +132,10 @@ void insertTeacherMenu(Base& temp){
   
   }
   while(!temp.existDep(input));
-  dummyStud.setDepartmentId(input);
+  dummyTeacher.setDepartmentId(input);
   system("clear");
   std::cout<<"Student's department is "<<red<<temp.getDepartmentById(input)<<reset<<"\n";
-  temp.insertStudent(dummyStud);
+  temp.insertTeacher(dummyTeacher);
 
 
 
@@ -195,7 +196,7 @@ void insertStudentMenu(Base& temp){
   std::cout << "Student's gender is "<< red << input << reset<<"\n";
   input=std::string{};
   do{
-  //temp.svidepartmenti();
+  temp.svidepartmenti();
   std::cout << "Insert student's department ID: ";
   std::cin >> input;
   system("clear");
