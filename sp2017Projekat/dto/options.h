@@ -5,7 +5,31 @@
 const  std::string title("\033[0;32m");
 const  std::string reset("\033[0m"); //resetuje boju
 const std::string red("\033[1;31m");
+const std::string green("\033[1;32m");
 
+int rimtoarab(const std::string& broj){
+  if(broj=="I")
+    return 1;
+  if(broj=="II")
+    return 2;
+  if(broj=="III")
+    return 3;
+  if(broj=="IV")
+    return 4;
+  if(broj=="V")
+    return 5;
+  if(broj=="VI")
+    return 6;
+  if(broj=="VII")
+    return 7;
+  if(broj=="VIII")
+    return 8;
+  if(broj=="IX")
+    return 9;
+  if(broj=="X")
+    return 10;
+  return 0;
+}
 
 void insertDepartmentMenu(Base& temp){
   system("clear");
@@ -41,24 +65,47 @@ void insertSubjectMenu(Base& temp){
   std::cout << "Subject's abbreviation is " << red << input << reset << "\n";
   input=std::string{};
   do{
-  //temp.svidepartmenti();
+  std::cout<<green<<"DEPARTMENTS LIST:"<<reset<<std::endl;
+  temp.svidepartmenti();
   std::cout << "Insert subjects's department ID: ";
   std::cin >> input;
   system("clear");
-  if(!(input==std::string{}))
+  if(input!=std::string{})
   std::cout<<red<<"Invalid department ID!"<<reset<<"\n";
   
   }
   while(!temp.existDep(input));
   depSub tempDS;
-  //linkanje Departments - Subjects
-  //tempDS.setDeptId();
- // temp.setSubId(); treba getovati ID subjecta da se proslijedi u setSubId()
   system("clear");
   std::cout<<"Subject's department is "<<red<<tempDS.getDeptId()<<reset<<"\n";
-  temp.insertSubject(dummySub);
+  //linkanje Departments - Subjects
+    tempDS.setDeptId(input);
+    tempDS.setSubId(temp.insertSubject(dummySub));
+    input=std::string{};
+    do{
+    std::cout<<"Insert subject's study year("<<red<<"INSERT: 'I' or 'II'' or 'III' or 'IV'"<<reset<<"):";
+    std::cin>>input;
+    system("clear");
+    if(input!="I" && input!="II" && input!="III" && input!="IV")
+      std::cout<<red<<"Invalid study year format!"<<reset<<std::endl;
+    }
+    while(input!="I" && input!="II" && input!="III" && input!="IV");
+    std::cout<<"Subject's study year is "<<red<<input<<reset<<"\n";
+    tempDS.setStudyYear(input);
+    int tY=rimtoarab(input);
 
-
+    input=std::string{};
+    do{
+    std::cout<<"Insert subject's semester("<<red<<"INSERT: 'I' or 'II'' or 'III' or 'IV' or 'V' or 'VI' or 'VII' or 'VIII'"<<reset<<"):";
+    std::cin>>input;
+    system("clear");
+    if((input!="I" && input!="II" && input!="III" && input!="IV" && input!="V" && input!="VI" && input!="VII" && input!="VII") || ( rimtoarab(input)!=(tY*2) && rimtoarab(input)!=((tY*2)-1)))
+      std::cout<<red<<"Invalid semester format!"<<reset<<std::endl;
+    }
+    while(rimtoarab(input)!=(tY*2) && rimtoarab(input)!=((tY*2)-1));
+    std::cout<<"Subject's semester is "<<red<<input<<reset<<"\n";
+    tempDS.setSemester(input);
+    temp.insertDepartmentsSubjects(tempDS);
 
 
 }
@@ -123,18 +170,19 @@ void insertTeacherMenu(Base& temp){
   std::cout<< "Teacher's title is "<<red<<input<<reset<<"\n";
   input=std::string{};
   do{
-  //temp.svidepartmenti();
+  std::cout<<green<<"DEPARTMENT'S LIST:"<<reset<<std::endl;
+  temp.svidepartmenti();
   std::cout << "Insert teacher's department ID: ";
   std::cin >> input;
   system("clear");
-  if(!(input==std::string{}))
+  if(input!=std::string{})
   std::cout<<red<<"Invalid department ID!"<<reset<<"\n";
   
   }
   while(!temp.existDep(input));
   dummyTeacher.setDepartmentId(input);
   system("clear");
-  std::cout<<"Student's department is "<<red<<temp.getDepartmentById(input)<<reset<<"\n";
+  std::cout<<"Teacher's department is "<<red<<temp.getDepartmentById(input)<<reset<<"\n";
   temp.insertTeacher(dummyTeacher);
 
 

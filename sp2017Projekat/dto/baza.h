@@ -124,7 +124,7 @@ Base(){
   }
 
 
-  //Metod koji vraca ime departmen-a preko id-a
+  //Metod koji vraca ime departmen-a preko id-a//stoi ali treba izbrisati prvi red
   std::string getDepartmentById(const std::string& depID)const{
     for(int i=0;i<departmentList.size();++i){
       
@@ -136,18 +136,18 @@ Base(){
     return std::string{"none"};
   }
   //Metod vraca ime+prezime teachera koji je na odredjenom predmetu
-  std::string getSubjectTeacher(const std::string& subjectID)const{
+  subjectTeachers getSubjectTeacher(const std::string& subjectID)const{
     for(int i=0;i<serviceSubjectTeachers.size();++i){
-      if(serviceSubjectTeachers[i].getSubId()==subjectID){
-        return getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getFirstName() + " " + getTeacherById(serviceSubjectTeachers[i].getTeacherId()).getLastName(); 
+      if(std::stoi(serviceSubjectTeachers[i].getSubId())==std::stoi(subjectID)){
+        return serviceSubjectTeachers[i]; 
       }
     }
-    return std::string{};
+    return subjectTeachers{};
   }
   //Metod vraca teacher-a po ID-u
   teacher getTeacherById(const std::string &teacherID)const{
     for(int i=0;i<teacherList.size();++i){
-      if(teacherList[i].getId()==teacherID){
+      if(std::stoi(teacherList[i].getId())==std::stoi(teacherID)){
         return teacherList[i];
       }
     }
@@ -188,44 +188,48 @@ Base(){
 
   //  Ispisi keno su poslije ovog komentara... kapiras
   
- // Ispis za sve studente, ispisuje id, prezime, ime, department.
+ // Ispis za sve studente, ispisuje id, prezime, ime, department. provjereno
 void svistudenti(const Vektor<student>& vec){
   for(int i=0;i<vec.size();++i){
-    std:: cout<< "Id: "  <<vec[i].getId() << "\t" << "Last Name: "  << vec[i].getLastName() << "\t" << "First Name: "  << vec[i].getFirstName() <<"\t" << "Department: "  << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
+    std:: cout<< "Id: "  <<vec[i].getId() << " \t" << "Last Name: "  << vec[i].getLastName() << " \t" << "First Name: "  << vec[i].getFirstName() <<" \t" << "Department: "  << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
   }
 }
 
 
-// Ispis za sve studente sa nekog smjera.
+// Ispis za sve studente sa nekog smjera. Provjereno
 void studentisasmjera(const Vektor<student>& vec){
   for(auto i=0;i<vec.size();++i){
-    std::cout<<"Id: "  << vec[i].getId() << "\t" <<"Last Name: "  << vec[i].getLastName() << "\t" << "First Name: "  << vec[i].getFirstName() << std::endl ;
+    std::cout<<"Id: "  << vec[i].getId() << " \t" <<"Last Name: "  << vec[i].getLastName() << " \t" << "First Name: "  << vec[i].getFirstName() << std::endl ;
   }
 }
 
 
-// Ispis svih studenata sa nekog predmeta.    **************
+// Ispis svih studenata sa nekog predmeta.  provjereno
 void svisapredmeta(const Vektor<student>& vec, const std::string& subId){
+  std::cout << getSubjectById(subId).getName() << std::endl;
   for(int i=0;i<vec.size();++i){
-std::cout << "Id: " << vec[i].getId() << "\t"  << "Last name: " << vec[i].getLastName() << "\t" << "First Name: " << vec[i].getFirstName() << "\t" << "Eval: " << getStudentEval(vec[i].getId(),subId) << "\t" <<"Department: " << getStudentDepartment(vec[i].getId()) << "\t" << "Teacher: " << getSubjectTeacher(subId) << std::endl;
+std::cout << "Id: " << vec[i].getId() << " "  << "Last name: " << vec[i].getLastName() << " " << "First Name: " << vec[i].getFirstName() << "\n" << "Eval: ";
+std::cout << getStudentEval(vec[i].getId(),subId) << " " <<"Department: " << getStudentDepartment(vec[i].getId()) << "\n" << "Teacher: " ;
+std::cout << getTeacherById(getSubjectTeacher(subId).getTeacherId()).getFirstName() << " ";
+std::cout << getTeacherById(getSubjectTeacher(subId).getTeacherId()).getLastName() << std::endl;
   }
 }
 
 
-// Ispis svih profesora.
+// Ispis svih profesora. provjereno
 void sviprofesori(const Vektor<teacher> & vec){
   for(auto i=0; i<vec.size() ; ++i){
-    std::cout << "Id: " << vec[i].getId()<< "\t" << "Last Name: " << vec[i].getLastName() << "\t" << "First Name: " << vec[i].getFirstName() << "\t" << "Department:" << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
+    std::cout << "Id: " << vec[i].getId()<< " \t" << "Last Name: " << vec[i].getLastName() << " \t" << "First Name: " << vec[i].getFirstName() << " \t" << "Department:" << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
   }
 }
 
-// ispis svih predmeta.
+// ispis svih predmeta. provjereno mozda napravit malo drugacije odvajanje
 void svipredmeti(const Vektor<subject>& vec){
  for(int i=0;i<vec.size();++i)
-{std::cout <<"Id: " << vec[i].getId() << "\t" << "Name: " << vec[i].getName() << "\t" << "Ects: " << vec[i].getEcts() << "\t" << "Abbreviation: " << vec[i].getAbb() << std::endl;
+{std::cout <<"Id: " << vec[i].getId() << " \t" << "Name: " << vec[i].getName() << " \t" << "Ects: " << vec[i].getEcts() << " \t" << "Abbreviation: " << vec[i].getAbb() << std::endl;
 }}
 
-// ispis svih departmenta
+// ispis svih departmenta provjereno
 void svidepartmenti(){
   for(int i=0;i<departmentList.size();++i)
   {std::cout << "Id: " << departmentList[i].getId() << "\t" << "Name: " << departmentList[i].getName() << std::endl;}
@@ -312,36 +316,36 @@ std::string idSeter(const List<T> &tempList){
   return std::to_string(i);
 }
 
-bool insertSubject(subject dummySub){
+std::string insertSubject(subject dummySub){
   for(int i=0;i<subjectList.size();++i){
     if(dummySub.getName()==subjectList[i].getName())
-      return false;
+      return "none";
   }
   dummySub.setId(idSeter(subjectList)); //setujemo ID
   subjectList.insert(dummySub);
-  return true;
+  return dummySub.getId();
 }
 
-bool insertStudent(student dummyStud){
+std::string insertStudent(student dummyStud){
   if(!existJMBG(dummyStud.getJmbg())){
     dummyStud.setId(idSeter(studentList));//setujemo ID
     studentList.insert(dummyStud);
-    return true;
+    return dummyStud.getId();
   }
   else{
-    return false;
+    return "none";
   }
   
 }
 
-bool insertTeacher(teacher dummyTeacher){
+std::string insertTeacher(teacher dummyTeacher){
   if(!existJMBG(dummyTeacher.getJmbg())){
     dummyTeacher.setId(idSeter(teacherList));//setujemo ID
     teacherList.insert(dummyTeacher);
-    return true;
+    return dummyTeacher.getId();
   }
   else{
-    return false;
+    return "none";
   }
   
 }
@@ -352,14 +356,14 @@ bool insertTeacher(teacher dummyTeacher){
 
 
 
-bool insertDepartment(department tempDep){
+std::string insertDepartment(department tempDep){
   for(int i=0;i<departmentList.size();++i){
     if(departmentList[i].getName()==tempDep.getName())
-      return false;
+      return "none";
   }
   tempDep.setId(idSeter(departmentList));
   departmentList.insert(tempDep);
-  return true;
+  return tempDep.getId();
 }
 // insertujemo student subject teacher
 bool insertSST(studentsSubjectsTeachers dummySST){
