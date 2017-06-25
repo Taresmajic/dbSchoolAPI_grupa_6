@@ -318,6 +318,41 @@ void insertStudentMenu(Base& temp){
 
 }
 
+void linkTeacherSubject(Base& temp){
+system("clear");
+std::string input{"uslov"};
+subjectTeachers tempST;
+
+do{
+  system("clear");
+if(input!="uslov")
+  std::cout << red << "Invalid teacher ID!" << reset << std::endl;
+std::cout << "Chose a profesor to link subjects to.\n";
+temp.sviprofesori(temp.Makesviprofesori());
+std::cout << "\nYour option: ";
+std::cin >> input;
+}while(!temp.existTeacher(input));
+tempST.setTeacherId(input);
+system("clear");
+std::cout << red << temp.getTeacherById(input).getFirstName() + temp.getTeacherById(input).getLastName() << reset << std::endl;
+
+input = "uslov";
+
+do{
+  system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid subject ID!" << reset << std::endl;
+  std::cout << "Chose a subject to link to a teacher!\n";
+  temp.svipredmeti(temp.Makesvipredmeti());
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+}while(!temp.existSub(input));
+tempST.setSubId(input);
+temp.insertSubjectTeacher(tempST);
+
+
+}
+
 void insertDataMenu(Base& temp){
   bool prgLoop=true;
   int opt;
@@ -330,20 +365,27 @@ void insertDataMenu(Base& temp){
     switch(opt){
       case 1:
         insertStudentMenu(temp);
+        system("clear");
         break;
       case 2:
 	insertTeacherMenu(temp);
+  system("clear");
         break;
       case 3:
 	insertSubjectMenu(temp);
+  system("clear");
         break;
       case 4:
 	insertDepartmentMenu(temp);
+  system("clear");
         break;
       case 5:
 	linkStudentSubject(temp);
+  system("clear");
         break;
       case 6:
+        linkTeacherSubject(temp);
+        system("clear");
         break;
       case 0:
         return;
