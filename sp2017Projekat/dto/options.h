@@ -341,6 +341,7 @@ void insertDataMenu(Base& temp){
 	insertDepartmentMenu(temp);
         break;
       case 5:
+	linkStudentSubject(temp);
         break;
       case 6:
         break;
