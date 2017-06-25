@@ -5,6 +5,144 @@
 const  std::string title("\033[0;32m");
 const  std::string reset("\033[0m"); //resetuje boju
 const std::string red("\033[1;31m");
+
+
+void insertDepartmentMenu(Base& temp){
+  system("clear");
+  department dummyDep;
+  std::string input;
+  std::cout << "Insert department's name: ";
+  std::cin >> input;
+  dummyDep.setName(input);
+  system("clear");
+  std::cout << "Department's name is " << red << input << reset<< "\n";
+  temp.insertDepartment(dummyDep);
+}
+
+
+void insertSubjectMenu(Base& temp){
+  system("clear");
+  subject dummySub;
+  std::string input;
+  std::cout << "Insert subject's name: ";
+  std::cin >> input;
+  dummySub.setName(input);
+  system("clear");
+  std::cout << "Subject's name is " << red << input << reset<< "\n";
+  std::cout << "Insert subject's ECTS: ";
+  std::cin >> input;
+  dummySub.setEcts(input);
+  system("clear");
+  std::cout << "Subject's ECTS is " << red << input <<reset<< "\n";
+  std::cout << "Insert subject's abbreviation: ";
+  std::cin >> input;
+  dummySub.setAbb(input);
+  system("clear");
+  std::cout << "Subject's abbreviation is " << red << input << reset << "\n";
+  input=std::string{};
+  do{
+  //temp.svidepartmenti();
+  std::cout << "Insert subjects's department ID: ";
+  std::cin >> input;
+  system("clear");
+  if(!(input==std::string{}))
+  std::cout<<red<<"Invalid department ID!"<<reset<<"\n";
+  
+  }
+  while(!temp.existDep(input));
+  //linkanje Departments - Subjects
+  temp.setDeptId(input);
+ // temp.setSubId(); treba getovati ID subjecta da se proslijedi u setSubId()
+  system("clear");
+  std::cout<<"Subject's department is "<<red<<tempDS.getDeptId()<<reset<<"\n";
+  temp.insertStudent(dummyStud);
+
+
+
+
+}
+
+
+
+
+void insertTeacherMenu(Base& temp){
+  system("clear");
+  teacher dummyTeacher;
+  std::string input;
+  std::cout << "Insert teacher's first name: ";
+  std::cin >> input;
+  dummyTeacher.setFirstName(input);
+  system("clear");
+  std::cout << "Teacher's first name is " << red << input << reset<< "\n";
+  std::cout << "Insert teacher's last name: ";
+  std::cin >> input;
+  dummyTeacher.setLastName(input);
+  system("clear");
+  std::cout << "Teacher's last name is " << red << input <<reset<< "\n";
+  std::cout << "Insert teacher's birth date (FORMAT: DD/MM/YY): ";
+  std::cin >> input;
+  dummyTeacher.setBirthdate(input);
+  system("clear");
+  std::cout << "Teacher's birth date is " << red << input << reset << "\n";
+  input=std::string{};
+  do{
+  if(input!=std::string{})
+    std::cout <<red <<"Invalid JMBG.Must contain 13 numbers! " <<reset<<std::endl;
+  std::cout << "Insert teacher's JMBG: ";
+  std::cin >> input;
+  system("clear");
+  }while(input.length()!=13 || temp.existJMBG(input));
+  dummyTeacher.setJmbg(input);
+  system("clear");
+  std::cout << "Teacher's JMBG is "<< red << input << reset<<"\n";
+  std::cout << "Insert teacher's email: ";
+  std::cin >> input;
+  dummyTeacher.setEmail(input);
+  system("clear");
+   std::cout << "Teacher's email is "<< red << input << reset<<"\n";
+  std::cout << "Insert teacher's gender(M/F): ";
+  input=std::string{};
+  do{
+    if(input!=std::string{}){
+      std::cout<<red<<"Invalid gender format. Must be 'M' or 'F'!"<<reset<<std::endl;
+    }
+    std::cout<<"Insert teacher's gender: ";
+    std::cin>>input;
+    system("clear");
+
+  }
+  while(input!="M" && input!="F");
+  dummyTeacher.setGender(input);
+  system("clear");
+  std::cout << "Teacher's gender is "<< red << input << reset<<"\n";
+  std::cout << "Insert teacher's title: ";
+  std::cin >> input;
+  dummyTeacher.setTitle(input);
+  system("clear");
+  std::cout<< "Teacher's title is "<<red<<input<<reset<<"\n";
+  input=std::string{};
+  do{
+  //temp.svidepartmenti();
+  std::cout << "Insert teacher's department ID: ";
+  std::cin >> input;
+  system("clear");
+  if(!(input==std::string{}))
+  std::cout<<red<<"Invalid department ID!"<<reset<<"\n";
+  
+  }
+  while(!temp.existDep(input));
+  dummyStud.setDepartmentId(input);
+  system("clear");
+  std::cout<<"Student's department is "<<red<<temp.getDepartmentById(input)<<reset<<"\n";
+  temp.insertStudent(dummyStud);
+
+
+
+
+}
+
+
+
 void insertStudentMenu(Base& temp){
   system("clear");
   student dummyStud;
@@ -90,10 +228,13 @@ void insertDataMenu(Base& temp){
         insertStudentMenu(temp);
         break;
       case 2:
+	insertTeacherMenu(temp);
         break;
       case 3:
+	insertSubjectMenu(temp);
         break;
       case 4:
+	insertDepartmentMenu(temp);
         break;
       case 5:
         break;
