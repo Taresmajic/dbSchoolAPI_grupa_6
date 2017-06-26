@@ -117,7 +117,8 @@ void insertSubjectMenu(Base& temp){
 
     input=std::string{};
     do{
-    std::cout<<"Insert subject's semester("<<red<<"INSERT: 'I' or 'II'' or 'III' or 'IV' or 'V' or 'VI' or 'VII' or 'VIII'"<<reset<<"):";
+    std::cout<<red << "Insert semester odd or evene coresponding with semester year: "<< reset << std::endl;
+    std::cout<<"("<<red<<"INSERT: 'I' or 'II'' or 'III' or 'IV' or 'V' or 'VI' or 'VII' or 'VIII'"<<reset<<"):";
     std::cin>>input;
     system("clear");
     if((input!="I" && input!="II" && input!="III" && input!="IV" && input!="V" && input!="VI" && input!="VII" && input!="VII") || ( rimtoarab(input)!=(tY*2) && rimtoarab(input)!=((tY*2)-1)))
@@ -263,16 +264,19 @@ void insertTeacherMenu(Base& temp){
   system("clear");
    std::cout << "Teacher's email is "<< red << input << reset<<"\n";
    input=std::string{};
-  do{
+  
+   do{
     if(input!=std::string{}){
-     std::cout << "Insert teacher's gender(M/F): ";
-      std::cout<<red<<"Invalid gender format. Must be 'M' or 'F'!"<<reset<<std::endl;
+    std::cout<<red<<"Invalid gender format. Must be 'M' or 'F'!"<<reset<<std::endl;
     }
+
+    std::cout << "Insert teacher's gender(M/F): ";
     std::cin>>input;
     system("clear");
 
-  }
-  while(input!="M" && input!="F");
+  }while(input!="M" && input!="F");
+  
+  
   dummyTeacher.setGender(input);
   system("clear");
   std::cout << "Teacher's gender is "<< red << input << reset<<"\n";
@@ -436,7 +440,9 @@ do{
   std::cout << "\nYour option: ";
   std::cin >> input;  
 }while(!temp.existSub(input));
+
 tempST.setSubId(input);
+
 if(temp.existSubjectTeacher(tempST)){
   system("clear");
   std::cout <<red<< "Chosen subject already has a teacher!"<<reset<< std::endl;
@@ -487,11 +493,11 @@ void insertDataMenu(Base& temp){
         break;
       case 5:
   	    linkStudentSubject(temp);
-        system("clear");
+       
         break;
       case 6:
         linkTeacherSubject(temp);
-        system("clear");
+        
         break;
       case 0:
         return;
@@ -505,7 +511,7 @@ void insertDataMenu(Base& temp){
 }
 //ODAVDE UPDATE
 
-void editStudentFirstName(student& tempStudent){
+void editStudentFirstName(Base& temp,student& tempStudent){
   system("clear");
   std::string input;
   std::cout << "Student first name: " << red << tempStudent.getFirstName() << reset << std::endl;
@@ -552,8 +558,9 @@ void editStudentSubject(Base& temp,student& tempStudent){
       std::cout << red << "Invalid ID\n" << reset;
     }
     system("clear");
+    
     std::cout << "Select subject you want to edit:\n";
-    // temp.predmetistudenta(tempStudent.getId()); OD KOMENTARISIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    temp.predmetistudenta(tempStudent.getId()); 
     std::cout << "Yout input: ";
     std::cin >> input;
 
@@ -590,6 +597,7 @@ std::cout << "Do you want to acept the changes? (Y/N): ";
 std::cin >> input;
 if(input=="Y"){
   temp.setSST(tempSST);
+  return;
 }else{
   if(input!="N"){
     std::cout << red << "Invalid option!" << reset << std::endl;
@@ -602,12 +610,8 @@ if(input=="Y"){
 
 void deleteStudent(Base& temp,student &tempStudent){
 	
-	std::cout<<green<<"Students List:\n"<<reset;
-	temp.allStuds(); //ispisi listu studenata
-	std::cout<<"Insert student's ID: ";
-	std::string option; // unos
-	cin>>option;
-	temp.eraseStudent(option); //proslijedio id u erase metod
+	temp.eraseStudent(tempStudent.getId()); //proslijedio id u erase metod
+  std::cout<<green<<"Student has been successfully deleted!\n"<<reset;
 }
 
 
@@ -640,7 +644,8 @@ void updateStudentMenu(Base& temp,student& tempStudent){
       editStudentSubject(temp,tempStudent);
       break;
     case 5:
-      deleteStudent(tempStudent);
+      deleteStudent(temp,tempStudent);
+      return;
     case 0:
       prgLoop=false;
       break;
@@ -745,27 +750,12 @@ void updateTeacherDepartment(Base& temp,teacher& tempTeacher){
 void deleteTeacher(Base& temp, teacher tempTeacher){
 	bool status=true;
 	std::string yes_no="Y";
-	do{
-	std::cout<<green<<"Teachers List:\n"<<reset;
-	temp.allTeachers(); //ispisi listu teachera
-	std::cout<<"Insert teacher's ID: ";
-	std::string option; // unos
-	std::cin>>option;
-	status=eraseTeacher(option);
+	status=temp.eraseTeacher(tempTeacher.getId());
 	system("clear");
-	if(!status){
-		do{
-		std::cout<<red<<"That teacher can't be delete becouse it's linked with subject! Want to try again? ('Y' or 'N'): ";
-		std::cin>>yes_no;
-		if(yes_no!="Y" && yes_no!="N"){
-			system("clear");
-			std::cout<<red<<"Invalid option!\n"<<reset;
-		}
-		}
-		while(yes_no!="Y" && yes_no!="N");
-	}
-	}
-	while(yes_no!="Y");
+	if(!status)
+		std::cout<<red<<"That teacher can't be delete becouse it's linked with subject!\n"<<reset;
+  else
+    std::cout<<green<<"Teacher has been successfully deleted!\n"<<reset;
 }
 
 void updateTeacherMenu(Base& temp){
@@ -815,7 +805,8 @@ void updateTeacherMenu(Base& temp){
         system("clear");
         break;
       case 6:
-	deleteTeacher(temp,tempTeacher);
+	      deleteTeacher(temp,tempTeacher);
+        return;
       case 0:
         return;
         break;
@@ -826,6 +817,7 @@ void updateTeacherMenu(Base& temp){
     }
   }
 }
+
 
 void updateSubjectName(Base& temp,subject& tempSubject){
   system("clear");
@@ -913,15 +905,11 @@ void updateSubjectSS(Base& temp,subject& tempSubject){
   
 }
 
-void deleteSubject(Base &temp, subject & tempSub){
-	std::cout<<green<<"Subject List:\n"<<reset;
-	temp.allSubs(); //ispisi listu subjecta
-	std::cout<<"Insert subject's ID: ";
-	std::string option; // unos
-	cin>>option;
-	temp.eraseSubject(option); //proslijedi id za brisanje
-}
 
+void deleteSubject(Base &temp, subject & tempSub){
+	temp.eraseSubject(tempSub.getId()); //proslijedi id za brisanje
+  std::cout<<green<<"Subject has been successfully deleted!\n"<<reset;
+}
 
 
 
@@ -965,6 +953,7 @@ void updateSubjectMenu(Base& temp){
         break;
       case 5:
 	deleteSubject(temp,tempSubject);
+  return;
       case 0:
         return;
         break;
@@ -981,7 +970,7 @@ void updateSubjectMenu(Base& temp){
 
 
 
-// KRAJ
+
 void updateDataMenu(Base& temp){
   bool prgLoop=true;
   int opt;
@@ -994,15 +983,13 @@ void updateDataMenu(Base& temp){
     switch(opt){
       case 1:
         updateStudent(temp);
-        system("clear");
         break;
       case 2:
         updateTeacherMenu(temp);
-        system("clear");
         break;
       case 3:
         updateSubjectMenu(temp);
-        system("clear");
+    
         break;
       case 0:
         return;
@@ -1062,6 +1049,7 @@ Vektor<student> veci=temp.Makesvisapredmeta(input);
 temp.menusvisapredmeta(veci,input);
 
 }
+
 void readstudentsdep(Base& temp){
 system("clear");
 Vektor<department> vec=temp.Makesvidepartmenti();
@@ -1080,12 +1068,13 @@ do{
   
 }while(!temp.existDep(input));
 system("clear");
-std::cout<<temp.getDepartmentById(input)<<":"<<std::endl;
+std::cout<<temp.getDepartmentById(input)<<std::endl;
 Vektor<student> veci=temp.Makestudentisasmjera(input);
 temp.studentisasmjera(veci);
-
-
 }
+
+
+
 
 void readstudentmenu(Base& temp){
   bool prgLoop=true;
@@ -1395,11 +1384,12 @@ void mainMenu(Base& temp){
         system("clear");
         break;
       case 3:
-        readDataMenu();
+        readDataMenu(temp);
         system("clear");
         break;
       case 0:
         std::cout<<"Thanks for using our database!\nSee you again! :)\n";
+        temp.alltxt();
         prgLoop=false;
         break;
       default:

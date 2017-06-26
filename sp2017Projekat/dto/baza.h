@@ -255,7 +255,7 @@ std::string getStudentDate(const std::string& studentID,const std::string& subje
   }
   
 
-  //  Ispisi keno su poslije ovog komentara... kapiras
+
  
  // Ispis za mainmenu svi studenti
 void menustudenti (){
@@ -295,13 +295,6 @@ void svistudenti(const Vektor<student>& vec){
 }
 
 
-void allStuds(){
-  for(int i=0;i<studentList.size();++i){
-    std:: cout<< "Id: "  <<studentList[i].getId() << " \t" << "Last Name: "  << studentList[i].getLastName() << " \t" << "First Name: "  << studentList[i].getFirstName() <<" \t" << "Department: "  << getDepartmentById(studentList[i].getDepartmentId()) << std::endl;
-  }
-}
-
-
 // Ispis za sve studente sa nekog smjera. Provjereno
 void studentisasmjera(const Vektor<student>& vec){
   for(auto i=0;i<vec.size();++i){
@@ -329,7 +322,7 @@ void predmetistudenta(const std::string studId){
  List<studentsSubjectsTeachers> listapredmeta=getAllSubjects(studId);
 
   for(int i=0;i<listapredmeta.size();++i)
-  {std::cout<< getSubjectById(listapredmeta[i].getSubId()).getName()<< " \t" <<"Eval: " << getStudentEval(studId,listapredmeta[i].getSubId()) << " \t"<<"Date: " << getStudentDate(studId,listapredmeta[i].getSubId())<< std::endl;
+  {std::cout<<listapredmeta[i].getSubId()<< " " << getSubjectById(listapredmeta[i].getSubId()).getName()<< " \t" <<"Eval: " << getStudentEval(studId,listapredmeta[i].getSubId()) << " \t"<<"Date: " << getStudentDate(studId,listapredmeta[i].getSubId())<< std::endl;
   }
 
 }
@@ -361,13 +354,6 @@ void sviprofesori(const Vektor<teacher> & vec){
     std::cout << "Id: " << vec[i].getId()<< " \t" << "Last Name: " << vec[i].getLastName() << " \t" << "First Name: " << vec[i].getFirstName() << " \t" << "Department:" << getDepartmentById(vec[i].getDepartmentId()) << std::endl;
   }
 }
-//ispis profa bez vektora
-void allTeachers(){
-  for(auto i=0; i<teacherList.size() ; ++i){
-    std::cout << "Id: " << teacherList[i].getId()<< " \t" << "Last Name: " << teacherList[i].getLastName() << " \t" << "First Name: " << teacherList[i].getFirstName() << " \t" << "Department:" << getDepartmentById(teacherList[i].getDepartmentId()) << std::endl;
-  }
-}
-
 
 // ispis jednog profesora
 void jedanprofesor(const std::string teachId){
@@ -390,15 +376,6 @@ void svipredmeti(const Vektor<subject>& vec){
 {std::cout <<"Id: " << vec[i].getId() << " \t" << "Name: " << vec[i].getName() << " \t" << "Ects: " << vec[i].getEcts() << " \t" << "Abbreviation: " << vec[i].getAbb() << std::endl;
 }std::cout << std::endl;
 }
-
-// ispis svih predmeta bez vektora
-//
-void allSubs(){
- for(int i=0;i<subjectList.size();++i)
-{std::cout <<"Id: " << subjectList[i].getId() << " \t" << "Name: " << subjectList[i].getName() << " \t" << "Ects: " << subjectList[i].getEcts() << " \t" << "Abbreviation: " << subjectList[i].getAbb() << std::endl;
-}std::cout << std::endl;
-
-
 
 // ispis jednog predmeta po id
 void jedanpredmet(const std::string subId){
@@ -447,7 +424,7 @@ std::cout << std::endl;
 
 
 
-  //kraj ispisa
+
 
   //ovde funkcije koje vracaju vektor za ispis prethodni
 
@@ -651,14 +628,14 @@ bool insertDepartmentsSubjects(depSub dummyDS){
        subjectList[i]=tempSub;
    }
 } 
- 
-  void setSST(const studentsSubjectsTeachers & tempSST){ //metod uzima studentSubjectTeacher i indeks na koji ga smjesta
-    for(int i=0;serviceStudentsSubjectsTeachers.size();++i){
+// ovooo DOOOODAAAAJ ********************
+  void setSST(const studentsSubjectsTeachers& tempSST){ //metod uzima studentSubjectTeacher
+    for(int i=0;i<serviceStudentsSubjectsTeachers.size();++i){
       if(tempSST==serviceStudentsSubjectsTeachers[i])
         serviceStudentsSubjectsTeachers[i]=tempSST;
     }
 } 
-  void setSubTeacher(const subjectTeachers & tempST){ //metod uzima subjecta i teachera i indeks na koji ga smjesta
+  void setSubTeacher(const subjectTeachers & tempST){ //metod uzima subjecta 
     for(int i=0; i<serviceSubjectTeachers.size();++i){
       if(serviceSubjectTeachers[i]==tempST)
         serviceSubjectTeachers[i]=tempST;
@@ -744,39 +721,38 @@ studentsSubjectsTeachers getSST(const studentsSubjectsTeachers& tempSST){
   return studentsSubjectsTeachers{};
 
 }
-
 void eraseStudent(const std::string &tempID)
 {
 	for(int i=0;i<studentList.size();++i){
 		if(studentList[i].getId()==tempID)
-			delete studentList[i]; // ako nadje id studenta, brise ga
+			studentList.erase(studentList[i]); // ako nadje id studenta, brise ga
 	}
 
 	for(int i=0;i<serviceStudentsSubjectsTeachers.size();++i){
 		if(serviceStudentsSubjectsTeachers[i].getStudId()==tempID)
-			delete serviceStudentsSubjectsTeachers[i]; //proso kroz listu, ako nadje u redu ID od studenta, brise red
+			serviceStudentsSubjectsTeachers.erase(serviceStudentsSubjectsTeachers[i]); //proso kroz listu, ako nadje u redu ID od studenta, brise red
 	}}
 
 void eraseSubject(const std::string &tempID)
 {
 	for(int i=0;i<subjectList.size();++i){
 		if(subjectList[i].getId()==tempID)
-			delete subjectList[i]; // ako nadje id studenta, brise ga
+			subjectList.erase(subjectList[i]); // ako nadje id studenta, brise ga
 	}
 
 	for(int i=0;i<serviceStudentsSubjectsTeachers.size();++i){
 		if(serviceStudentsSubjectsTeachers[i].getSubId()==tempID)
-			delete serviceStudentsSubjectsTeachers[i]; //proso kroz listu, ako nadje u redu ID od subjecta, brise red
+			serviceStudentsSubjectsTeachers.erase(serviceStudentsSubjectsTeachers[i]); //proso kroz listu, ako nadje u redu ID od subjecta, brise red
 	}
 
 	for(int i=0;i<serviceSubjectTeachers.size();++i){
 		if(serviceSubjectTeachers[i].getSubId()==tempID)
-			delete serviceSubjectTeachers[i]; //proso kroz listu, ako nadje u redu ID od subjecta, brise red
+			serviceSubjectTeachers.erase(serviceSubjectTeachers[i]); //proso kroz listu, ako nadje u redu ID od subjecta, brise red
 	}
 
 	for(int i=0;i<serviceDepSub.size();++i){
 		if(serviceDepSub[i].getSubId()==tempID)
-			delete serviceSubjectTeachers[i]; //proso kroz listu, ako nadje u redu ID od subjecta, brise red
+			serviceSubjectTeachers.erase(serviceSubjectTeachers[i]); //proso kroz listu, ako nadje u redu ID od subjecta, brise red
 	}
 }
 
@@ -793,10 +769,31 @@ bool eraseTeacher(const std::string &tempID){
 
 	for(int i=0;i<teacherList.size();++i){
 	if(teacherList[i].getId()==tempID){ //ako nadje teachera ovdje vraca true i brise ga iz liste
-		delete teacherList[i];
+		teacherList.erase(teacherList[i]);
 		return true;
 	}}
+  return false;
 }
+
+void allSubs(){
+ for(int i=0;i<subjectList.size();++i)
+{std::cout <<"Id: " << subjectList[i].getId() << " \t" << "Name: " << subjectList[i].getName() << " \t" << "Ects: " << subjectList[i].getEcts() << " \t" << "Abbreviation: " << subjectList[i].getAbb() << std::endl;
+}std::cout << std::endl;
+}
+
+void allStuds(){
+  for(int i=0;i<studentList.size();++i){
+    std:: cout<< "Id: "  <<studentList[i].getId() << " \t" << "Last Name: "  << studentList[i].getLastName() << " \t" << "First Name: "  << studentList[i].getFirstName() <<" \t" << "Department: "  << getDepartmentById(studentList[i].getDepartmentId()) << std::endl;
+  }
+}
+
+void allTeachers(){
+  for(auto i=0; i<teacherList.size() ; ++i){
+    std::cout << "Id: " << teacherList[i].getId()<< " \t" << "Last Name: " << teacherList[i].getLastName() << " \t" << "First Name: " << teacherList[i].getFirstName() << " \t" << "Department:" << getDepartmentById(teacherList[i].getDepartmentId()) << std::endl;
+  }
+}
+
+
 };
 
 

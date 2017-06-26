@@ -17,7 +17,7 @@ public:
   void setTeacherId(const std::string &dummy){teacherId_=dummy;  }
   bool operator < (const subjectTeachers &dummy )const{return subjectId_<dummy.subjectId_;}
   bool operator > (const subjectTeachers &dummy )const{return subjectId_>dummy.subjectId_;}
-  bool operator == (const subjectTeachers &dummy )const{return subjectId_==dummy.subjectId_;}
+  bool operator == (const subjectTeachers &dummy )const{return subjectId_==dummy.subjectId_ && teacherId_==dummy.teacherId_;}
    
 };
 
