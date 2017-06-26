@@ -600,7 +600,15 @@ if(input=="Y"){
 
 }
 
-
+void deleteStudent(Base& temp,student &tempStudent){
+	
+	std::cout<<green<<"Students List:\n"<<reset;
+	temp.allStuds(); //ispisi listu studenata
+	std::cout<<"Insert student's ID: ";
+	std::string option; // unos
+	cin>>option;
+	temp.eraseStudent(option); //proslijedio id u erase metod
+}
 
 
 void updateStudentMenu(Base& temp,student& tempStudent){
@@ -612,12 +620,12 @@ void updateStudentMenu(Base& temp,student& tempStudent){
     std::cout << red << "Invalid option!" << reset << std::endl;
   std::cout << "Student currently edited: " << red << tempStudent.getFirstName() + " " + tempStudent.getLastName() << reset << std::endl;
   std::cout << "Insert what you want to edit: \n";
-  std::cout << "1. Edit first name\n2. Edit last name\n3. Edit email\n4. Edit student subject\n0. Done editing";
+  std::cout << "1. Edit first name\n2. Edit last name\n3. Edit email\n4. Edit student subject\n5. Delete student\n0. Done editing";
   std::cout << "\nYour option: ";
   std::cin >> input;
   switch(input){
     case 1:
-      editStudentFirstName(tempStudent);
+      editStudentFirstName(temp,tempStudent);
       
       break;
     case 2:
@@ -631,6 +639,8 @@ void updateStudentMenu(Base& temp,student& tempStudent){
     case 4:
       editStudentSubject(temp,tempStudent);
       break;
+    case 5:
+      deleteStudent(tempStudent);
     case 0:
       prgLoop=false;
       break;
@@ -732,7 +742,31 @@ void updateTeacherDepartment(Base& temp,teacher& tempTeacher){
  
 }
 
-
+void deleteTeacher(Base& temp, teacher tempTeacher){
+	bool status=true;
+	std::string yes_no="Y";
+	do{
+	std::cout<<green<<"Teachers List:\n"<<reset;
+	temp.allTeachers(); //ispisi listu teachera
+	std::cout<<"Insert teacher's ID: ";
+	std::string option; // unos
+	std::cin>>option;
+	status=eraseTeacher(option);
+	system("clear");
+	if(!status){
+		do{
+		std::cout<<red<<"That teacher can't be delete becouse it's linked with subject! Want to try again? ('Y' or 'N'): ";
+		std::cin>>yes_no;
+		if(yes_no!="Y" && yes_no!="N"){
+			system("clear");
+			std::cout<<red<<"Invalid option!\n"<<reset;
+		}
+		}
+		while(yes_no!="Y" && yes_no!="N");
+	}
+	}
+	while(yes_no!="Y");
+}
 
 void updateTeacherMenu(Base& temp){
   teacher tempTeacher;
@@ -756,7 +790,7 @@ void updateTeacherMenu(Base& temp){
   while(prgLoop){
     std::cout <<  "Teacher eddited: " << red << tempTeacher.getFirstName() + " " + tempTeacher.getLastName() << reset << std::endl;
     std::cout << "Enter what do you want to update:\n\n";
-    std::cout<< "1. Update teacher first name\n2. Update teacher last name\n3. Update teacher title\n4. Update teacher email\n5. Update teacher department\n0. Go back\n\n";
+    std::cout<< "1. Update teacher first name\n2. Update teacher last name\n3. Update teacher title\n4. Update teacher email\n5. Update teacher department\n6. Delete teacher\n0. Go back\n\n";
     std::cout << "Your option: ";
     std::cin >> opt;
     switch(opt){
@@ -780,6 +814,8 @@ void updateTeacherMenu(Base& temp){
         updateTeacherDepartment(temp,tempTeacher);
         system("clear");
         break;
+      case 6:
+	deleteTeacher(temp,tempTeacher);
       case 0:
         return;
         break;
@@ -877,7 +913,14 @@ void updateSubjectSS(Base& temp,subject& tempSubject){
   
 }
 
-
+void deleteSubject(Base &temp, subject & tempSub){
+	std::cout<<green<<"Subject List:\n"<<reset;
+	temp.allSubs(); //ispisi listu subjecta
+	std::cout<<"Insert subject's ID: ";
+	std::string option; // unos
+	cin>>option;
+	temp.eraseSubject(option); //proslijedi id za brisanje
+}
 
 
 
@@ -904,7 +947,7 @@ void updateSubjectMenu(Base& temp){
   while(prgLoop){
     std::cout <<  "Subject eddited: " << red << tempSubject.getName()<< reset << std::endl;
     std::cout << "Enter what do you want to update:\n\n";
-    std::cout<< "1. Update subject name\n2. Update subject department\n3. Update subject ects\n4. Update year and semester\n0. Go back\n\n";
+    std::cout<< "1. Update subject name\n2. Update subject department\n3. Update subject ects\n4. Update year and semester\n5. Delete subject\n0. Go back\n\n";
     std::cout << "Your option: ";
     std::cin >> opt;
     switch(opt){
@@ -920,6 +963,8 @@ void updateSubjectMenu(Base& temp){
       case 4:
         updateSubjectSS(temp,tempSubject); 
         break;
+      case 5:
+	deleteSubject(temp,tempSubject);
       case 0:
         return;
         break;
