@@ -1,5 +1,5 @@
-#ifndef SCHOOL_H_
-#define SCHOOL_H_
+#ifndef BAZA_H_
+#define BAZA_H_
 #include"List.h"
 #include"student.h"
 #include"teacher.h"
@@ -23,7 +23,9 @@ List<subjectTeachers> serviceSubjectTeachers;
 List<depSub> serviceDepSub;
 List<studentsSubjectsTeachers> serviceStudentsSubjectsTeachers;
 public:
-
+void ispis(){
+  std::cout  <<  serviceStudentsSubjectsTeachers.size() << serviceDepSub.size() << serviceSubjectTeachers.size();
+}
 // Konstruktor za ubacivanje txt u liste
 Base(){
 
@@ -52,7 +54,7 @@ Base(){
    parsiraj(subjectList,subi);
 
  // Ucitavanje za departments-subjects.txt
- std::fstream depsubfajl("../db/departmens-subjects.txt");
+ std::fstream depsubfajl("../db/departments-subjects.txt");
  std::string depsubi;
  while(getline(depsubfajl,depsubi))
    parsiraj(serviceDepSub,depsubi);
@@ -100,6 +102,17 @@ Base(){
     }
     return std::string{};
   }
+  // metod koji vraca teacher a uzima depid
+  List<teacher> getTeacherfromDepartment(const std::string& depId)const{
+    List<teacher> jedan;
+    for(int i=0;i<teacherList.size();++i){
+      if(std::stoi(teacherList[i].getDepartmentId())==std::stoi(depId)){
+        jedan.insert(teacherList[i]);
+      }
+    }
+    return jedan;
+  }
+
 
   //Metod koji vraca smijer a uzima id predmeta
   department getSubjectDepartment(const std::string& subjectID){
@@ -110,7 +123,23 @@ Base(){
     }
     return department{};
   }
- // Samo polako
+
+ //Metod koji vraca predmet a uzima id departmenta
+   List<subject> getListSubjectDepartment(const std::string& depID){
+    List<subject> jedan;
+    
+     for(int i=0;i<serviceDepSub.size();++i){
+       
+       if(std::stoi(serviceDepSub[i].getDeptId())==std::stoi(depID)){
+        
+         jedan.insert(getSubjectById(serviceDepSub[i].getSubId()));
+      }
+    }
+    return jedan;
+  }
+
+
+  // Metod koji vraca department a uzima ID subjecta
  std::string getsubdep1(const std::string& subjeID)const{
     for(int i=0;i<subjectList.size();++i){
       if(subjectList[i].getId()==subjeID){
@@ -344,7 +373,8 @@ void jedanprofesor(const std::string teachId){
 void svipredmeti(const Vektor<subject>& vec){
  for(int i=0;i<vec.size();++i)
 {std::cout <<"Id: " << vec[i].getId() << " \t" << "Name: " << vec[i].getName() << " \t" << "Ects: " << vec[i].getEcts() << " \t" << "Abbreviation: " << vec[i].getAbb() << std::endl;
-}}
+}std::cout << std::endl;
+}
 
 // ispis jednog predmeta po id
 void jedanpredmet(const std::string subId){
@@ -361,6 +391,38 @@ void svidepartmenti(){
   for(int i=0;i<departmentList.size();++i)
   {std::cout << "Id: " << departmentList[i].getId() << "\t" << "Name: " << departmentList[i].getName() << std::endl;}
 }
+void jedandepartment(const std::string depId){
+  for(int i=0;i<departmentList.size();++i)
+  {if(departmentList[i].getId()==depId)
+    std::cout << departmentList[i].getName() <<std::endl;
+  }
+  std::cout <<"Subjects: "<<std::endl;
+  List<subject> lista=getListSubjectDepartment(depId);
+  for(int i=0;i<lista.size();++i)
+  {
+  std::cout << lista[i].getName() << " Ects: " <<lista[i].getEcts() << " " << lista[i].getAbb() << std::endl;
+  }
+  std::cout << std::endl << "Teachers: " << std::endl;
+  List<teacher> jedinica=getTeacherfromDepartment(depId);
+  for(int i=0;i<jedinica.size();++i)
+  {
+    std::cout << jedinica[i].getLastName() <<" " << jedinica[i].getFirstName() << " " << jedinica[i].getTitle() << std::endl;
+  }
+  std::cout<< std::endl;
+}
+void predmetisdepartmenta (const std::string& ID){
+List<subject> jedan=getListSubjectDepartment(ID);
+std::cout << "Department: "<< getDepartmentById(ID) << std::endl;
+for(auto i=0; i<jedan.size(); ++i){
+  
+  std::cout << jedan[i].getId() <<" " <<jedan[i].getName()  << " Ects:  " <<  jedan[i].getEcts()  << std::endl;
+  }
+std::cout << std::endl;
+}
+
+
+
+
   //kraj ispisa
 
   //ovde funkcije koje vracaju vektor za ispis prethodni
