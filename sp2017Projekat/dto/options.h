@@ -114,7 +114,11 @@ void linkStudentSubject(Base& temp){
   studentsSubjectsTeachers tempSST;
   system("clear");
   
-  std::string studentID{"uslovni"};
+  bool uslov=true;
+  std::string studentID;
+  std::string input;
+while(uslov){
+  studentID="uslovni";
   do{
     if(studentID!="uslovni")
       std::cout << red << "Invalid ID!" << reset << std::endl;
@@ -130,7 +134,7 @@ void linkStudentSubject(Base& temp){
   std::cout<< red << temp.getStudentById(studentID).getFirstName() << " " << temp.getStudentById(studentID).getLastName() << reset ; 
   std::cout << "\n";
   
-  std::string input("uslovni");
+  input="uslovni";
   do{
   if(input!="uslovni")
     std::cout << red << "Invalid ID!" << reset << std::endl;
@@ -141,6 +145,26 @@ void linkStudentSubject(Base& temp){
   std::cin >> input;
   }while(!temp.existSub(input));
   tempSST.setSubId(input); 
+  if(temp.existSST(tempSST)){
+    system("clear");
+    std::cout << red << "This student already has this subject!" << reset << std::endl;
+    std::cout << "Do you want to exit(Y/N): ";
+    std::string yes_no;
+    std::cin >> yes_no;
+    bool yes_no_test=true;
+    while(yes_no_test)
+    if(yes_no=="Y")
+      return;
+    else{
+      if(yes_no!="N"){
+        std::cout << red << "Must be Y or N!" << reset << std::endl;
+      }else yes_no_test=false;
+      
+    }
+    uslov=true;
+  }else uslov = false;
+  
+}
   subjectTeachers dummy=temp.getSubjectTeacher(input); 
   tempSST.setTeacherId(dummy.getTeacherId());
   
