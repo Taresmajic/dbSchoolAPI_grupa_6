@@ -368,20 +368,20 @@ void insertDataMenu(Base& temp){
         system("clear");
         break;
       case 2:
-	insertTeacherMenu(temp);
-  system("clear");
+	      insertTeacherMenu(temp);
+        system("clear");
         break;
       case 3:
-	insertSubjectMenu(temp);
-  system("clear");
+	      insertSubjectMenu(temp);
+        system("clear");
         break;
       case 4:
-	insertDepartmentMenu(temp);
-  system("clear");
+	      insertDepartmentMenu(temp);
+        system("clear");
         break;
       case 5:
-	linkStudentSubject(temp);
-  system("clear");
+  	    linkStudentSubject(temp);
+        system("clear");
         break;
       case 6:
         linkTeacherSubject(temp);
@@ -397,7 +397,111 @@ void insertDataMenu(Base& temp){
     }
   }
 }
-void updateDataMenu(){
+//ODAVDE UPDATE
+
+void editStudentFirstName(student& tempStudent){
+  system("clear");
+  std::string input;
+  std::cout << "Student first name: " << red << tempStudent.getFirstName() << reset << std::endl;
+  std::cout << "Change name to: ";
+  std::cin >> input;
+  tempStudent.setFirstName(input);
+  system("clear");
+  std::cout << "Name changed to: " << red << input << reset << std::endl;
+
+}
+
+void editStudentLastName(student& tempStudent){
+  system("clear");
+  std::string input;
+  std::cout << "Student last name: " << red << tempStudent.getLastName() << reset << std::endl;
+  std::cout << "Change name to: ";
+  std::cin >> input;
+  tempStudent.setLastName(input);
+  system("clear");
+  std::cout << "Name changed to: " << red << input << reset << std::endl;
+
+}
+
+void editStudentEmail(student& tempStudent){
+  system("clear");
+  std::string input;
+  std::cout << "Student email: " << red << tempStudent.getEmail() << reset << std::endl;
+  std::cout << "Change email to: ";
+  std::cin >> input;
+  tempStudent.setEmail(input);
+  system("clear");
+  std::cout << "Email changed to: " << red << input << reset << std::endl;
+
+}
+void editStudentSubject(student& tempStudent){
+  system("clear");
+  
+  
+}
+
+
+
+
+void updateStudentMenu(student& tempStudent){
+  int input=-1;
+  bool prgLoop=true;
+  do{
+  system("clear");
+  if(input<0 && input >4)
+    std::cout << red << "Invalid option!" << reset << std::endl;
+  std::cout << "Student currently edited: " << red << tempStudent.getFirstName() + " " + tempStudent.getLastName() << reset << std::endl;
+  std::cout << "Insert what you want to edit: \n";
+  std::cout << "1. Edit first name\n2. Edit last name\n3. Edit email\n4. Edit student subject\n0. Done editing";
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  switch(input){
+    case 1:
+      editStudentFirstName(tempStudent);
+      
+      break;
+    case 2:
+      editStudentLastName(tempStudent);
+      
+      break;
+    case 3:
+      editStudentEmail(tempStudent);
+      
+      break;
+    case 4:
+      break;
+    case 0:
+      prgLoop=false;
+      break;
+    default:
+      input=-1;
+      break;
+  }
+  }while(prgLoop);
+
+}
+
+
+void updateStudent(Base& temp){
+  system("clear");
+  std::string input{"uslov"};
+  do{
+    system("clear");
+    if(input!="uslov")
+      std::cout <<red<<"Invalid ID!" << reset << std::endl;
+    std::cout << "Insert student ID\n";
+    temp.svistudenti(temp.Makesvistudenti());
+    std::cin >> input;
+  }while(!temp.existStud(input));
+  student tempStudent=temp.getStudentById(input);
+  updateStudentMenu(tempStudent);
+  temp.setStudent(tempStudent);
+}
+
+
+
+// KRAJ
+void updateDataMenu(Base& temp){
   bool prgLoop=true;
   int opt;
   system("clear");
@@ -408,6 +512,8 @@ void updateDataMenu(){
     std::cin >> opt;
     switch(opt){
       case 1:
+        updateStudent(temp);
+        system("clear");
         break;
       case 2:
         break;
@@ -473,7 +579,7 @@ void mainMenu(Base& temp){
         system("clear");
         break;
       case 2:
-        updateDataMenu();
+        updateDataMenu(temp);
         system("clear");
         break;
       case 3:

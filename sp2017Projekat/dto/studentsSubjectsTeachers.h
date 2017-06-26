@@ -21,7 +21,7 @@ public:
   void setDate(const std::string &dummy){date_=dummy;}
   bool operator < (const studentsSubjectsTeachers &dummy)const{return studentId_<dummy.studentId_;}
   bool operator > (const studentsSubjectsTeachers &dummy)const{return studentId_>dummy.studentId_;}
-  bool operator == (const studentsSubjectsTeachers &dummy)const{return studentId_==dummy.studentId_;}
+  bool operator == (const studentsSubjectsTeachers &dummy)const{return studentId_==dummy.studentId_ && subjectId_==dummy.subjectId_;}
 };
 
 
