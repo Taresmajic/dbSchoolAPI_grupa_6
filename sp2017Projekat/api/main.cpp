@@ -1,5 +1,5 @@
-#include<iostream>
-#include<string>
-
-
-int main(){}
+#include"../dto/options.h"
+int main(){
+  Base baza;
+  mainMenu(baza);
+}
