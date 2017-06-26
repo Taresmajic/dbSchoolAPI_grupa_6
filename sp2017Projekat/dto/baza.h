@@ -10,6 +10,7 @@
 #include"department.h"
 #include"Vektor.h"
 #include"parsiranje.h"
+#include"colors.h"
 
 class Base{
 private:
@@ -606,27 +607,46 @@ bool insertDepartmentsSubjects(depSub dummyDS){
   //Update metodi
  //Unutar maina vrsi se provjera sta mijenjamo kod teachera i studenta
  
-void setTeacher(const teacher & tempTeacher, int index){ //metod uzima teachera i indeks na koji ga smjesta
-  teacherList[index]=tempTeacher;
+
+ 
+ void setTeacher(const teacher & tempTeacher){ //metod uzima teachera i indeks na koji ga smjesta
+  for(int i=0;i<teacherList.size();++i){
+    if(teacherList[i]==tempTeacher){
+      teacherList[i]=tempTeacher;
+    }
+  }
 } 
- void setStudent(const student & tempStud, int index){ //metod uzima studenta  i indeks na koji ga smjesta
-  studentList[index]=tempStud;
+ void setStudent(const student & tempStud){ //metod uzima studenta  i indeks na koji ga smjesta
+   for(int i=0;i<studentList.size();++i){
+     if(tempStud==studentList[i])
+       studentList[i]=tempStud;
+   }
+} 
+  void setSubject(const subject & tempSub){ //metod uzima studenta  i indeks na koji ga smjesta
+   for(int i=0;i<subjectList.size();++i){
+     if(tempSub==subjectList[i])
+       subjectList[i]=tempSub;
+   }
 } 
  
- void setSubject(const subject & tempSub, int index){ //metod uzima subject i indeks na koji ga smjesta
-  subjectList[index]=tempSub;
+  void setSST(const studentsSubjectsTeachers & tempSST){ //metod uzima studentSubjectTeacher i indeks na koji ga smjesta
+    for(int i=0;serviceStudentsSubjectsTeachers.size();++i){
+      if(tempSST==serviceStudentsSubjectsTeachers[i])
+        serviceStudentsSubjectsTeachers[i]=tempSST;
+    }
 } 
-  void setSST(const studentsSubjectsTeachers & tempSST, int index){ //metod uzima studentSubjectTeacher i indeks na koji ga smjesta
-  serviceStudentsSubjectsTeachers[index]=tempSST;
+  void setSubTeacher(const subjectTeachers & tempST){ //metod uzima subjecta i teachera i indeks na koji ga smjesta
+    for(int i=0; i<serviceSubjectTeachers.size();++i){
+      if(serviceSubjectTeachers[i]==tempST)
+        serviceSubjectTeachers[i]=tempST;
+    }
 } 
-  void setSubTeacher(const subjectTeachers & tempST, int index){ //metod uzima subjecta i teachera i indeks na koji ga smjesta
-  serviceSubjectTeachers[index]=tempST;
+ void setDepSub(const depSub & tempDS){ //metod uzima depSUb i indeks na koji ga smjesta
+   for(int i=0;i< serviceDepSub.size();++i){
+     if(serviceDepSub[i]==tempDS)
+       serviceDepSub[i]=tempDS;
+   }
 } 
- void setDepSub(const depSub & tempDS, int index){ //metod uzima depSUb i indeks na koji ga smjesta
-  serviceDepSub[index]=tempDS;
-} 
- 
- 
   //Kraj update metoda
   
   bool existDep(const std::string &depID){
@@ -660,6 +680,48 @@ bool existSub(const std::string &subID){
 
 //geteri LIsta
   List<student> getStudentList()const{return studentList;}
+  bool existSST(const studentsSubjectsTeachers& tempSST){
+  for(int i=0;i<serviceStudentsSubjectsTeachers.size();++i){
+    if(serviceStudentsSubjectsTeachers[i]==tempSST){
+      return true;
+    }
+  }
+  return false;
+}
+
+bool existSubjectTeacher(const subjectTeachers& tempST){
+  for(int i=0;i<serviceSubjectTeachers.size();++i){
+    if(serviceSubjectTeachers[i]==tempST)
+      return true;
+  }
+  return false;
+}
+void getTempTeacher(const teacher & TT){
+    std::cout<<"First name: "<<red<<TT.getFirstName()<<reset<<" \tLast name: "<<red<<TT.getLastName()<<reset
+    <<" \tBirthdate: "<<red<<TT.getBirthdate()<<reset<<" \tEmail: "<<red<<TT.getEmail()<<reset<<" \t Gender: "<<red<<TT.getGender()<<reset
+    <<" \tJMBG: "<<red<<TT.getJmbg()<<reset<<" \tTitle: "<<red<<TT.getTitle()<<reset<<" \tDepartment ID: "<<red<<TT.getDepartmentId()<<reset<<"\n";
+  }
+  void getTempStudent(const student & TT){
+    std::cout<<"First name: "<<red<<TT.getFirstName()<<reset<<" \tLast name: "<<red<<TT.getLastName()<<reset
+    <<" \tBirthdate: "<<red<<TT.getBirthdate()<<reset<<" \tEmail: "<<red<<TT.getEmail()<<reset<<" \t Gender: "<<red<<TT.getGender()<<reset
+    <<" \tJMBG: "<<red<<TT.getJmbg()<<reset<<" \tDepartment ID: "<<red<<TT.getDepartmentId()<<reset<<"\n";
+  }
+
+  void getTempSubject(const subject & TT,const std::string & SY, const std::string &S){
+    std::cout<<"Name: "<<red<<TT.getName()<<reset<<" \tECTS: "<<red<<TT.getEcts()<<reset
+    <<" \tAbbrevation: "<<red<<TT.getAbb()<<reset<<" \tStudy year: "<<red<<SY<<reset<<" \tSemester: "<<red<<S<<"\n";
+  }
+
+studentsSubjectsTeachers getSST(const studentsSubjectsTeachers& tempSST){
+  for(int i=0;i< serviceStudentsSubjectsTeachers.size();++i){
+    if(serviceStudentsSubjectsTeachers[i]==tempSST){
+      return serviceStudentsSubjectsTeachers[i];
+    }
+  }
+  return studentsSubjectsTeachers{};
+
+}
+
 
 };
 
