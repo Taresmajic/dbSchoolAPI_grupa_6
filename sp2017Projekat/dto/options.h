@@ -969,8 +969,327 @@ void updateDataMenu(Base& temp){
     }
   }
 }
+void readstudent(Base& temp){
+system("clear");
+Vektor<student> vec=temp.Makesvistudenti();
+temp.svistudenti(vec);
+std::string input("uslov");
 
-void readDataMenu(){
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid student's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert student's ID: " << std::endl;
+  temp.svistudenti(temp.Makesvistudenti());
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existStud(input));
+system("clear");
+temp.predmetistudenta(input);
+std::cout << std::endl;
+
+}
+void readallstudents(Base& temp){
+  system("clear");
+  temp.menustudenti();
+}
+void readstudentssubject(Base& temp){
+system("clear");
+Vektor<subject> vec=temp.Makesvipredmeti();
+temp.svipredmeti(vec);
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid subject's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert subject's ID: " << std::endl;
+  temp.svipredmeti(temp.Makesvipredmeti());
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existStud(input));
+system("clear");
+Vektor<student> veci=temp.Makesvisapredmeta(input);
+temp.menusvisapredmeta(veci,input);
+
+}
+void readstudentsdep(Base& temp){
+system("clear");
+Vektor<department> vec=temp.Makesvidepartmenti();
+temp.svidepartmenti();
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid department's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert department's ID: " << std::endl;
+  temp.svidepartmenti();
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existDep(input));
+system("clear");
+std::cout<<temp.getDepartmentById(input)<<":"<<std::endl;
+Vektor<student> veci=temp.Makestudentisasmjera(input);
+temp.studentisasmjera(veci);
+
+
+}
+
+void readstudentmenu(Base& temp){
+  bool prgLoop=true;
+  int opt;
+  system("clear");
+  while(prgLoop){
+   std::cout << "Enter what do you want to read:\n\n";
+    std::cout << "1. Read student\n2. Read all students\n3. Read students from subject\n4. Read students from departments\n0. Go back\n\n";
+    std::cout << "Your option: ";
+    std::cin >> opt;
+    switch(opt){
+      case 1:
+        readstudent(temp);
+        break;
+      case 2:
+        readallstudents(temp);
+        break;
+      case 3:
+        readstudentssubject(temp);
+        break;
+      case 4:
+        readstudentsdep(temp);
+        break;
+      case 0:
+        return;
+        break;
+      default:
+      system("clear");
+      std::cout << red <<"Invalid option!\nTry Again!\n"<<reset<<std::endl;
+        break;
+
+}}}
+void readteacher(Base& temp){
+system("clear");
+Vektor<teacher> vec=temp.Makesviprofesori();
+temp.sviprofesori(vec);
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid teacher's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert teacher's ID: " << std::endl;
+  temp.sviprofesori(temp.Makesviprofesori());
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existTeacher(input));
+system("clear");
+temp.jedanprofesor(input);
+}
+void readallteachers(Base& temp){
+  system("clear");
+  temp.menuprofesori();
+}
+void readteacherdep(Base& temp){
+system("clear");
+Vektor<department> vec=temp.Makesvidepartmenti();
+temp.svidepartmenti();
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid department's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert department's ID: " << std::endl;
+  temp.svidepartmenti();
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existDep(input));
+system("clear");
+std::cout << temp.getDepartmentById(input)<<std::endl;
+Vektor<teacher> veci=temp.Makeprofesorisasmjera(input);
+temp.profesorisasmjera(veci);
+
+
+}
+
+void readteachermenu(Base& temp){
+  bool prgLoop=true;
+  int opt;
+  system("clear");
+  while(prgLoop){
+   std::cout << "Enter what do you want to read:\n\n";
+    std::cout << "1. Read teacher\n2. Read all teachers\n3. Read teachers from department\n0. Go back\n\n";
+    std::cout << "Your option: ";
+    std::cin >> opt;
+    switch(opt){
+      case 1:
+        readteacher(temp);
+        break;
+      case 2:
+        readallteachers(temp);
+        break;
+      case 3:
+        readteacherdep(temp);
+        break;  
+      case 0:
+        return;
+        break;
+      default:
+      system("clear");
+      std::cout << red <<"Invalid option!\nTry Again!\n"<<reset<<std::endl;
+        break;
+
+}}}
+void readsubject(Base& temp){
+system("clear");
+Vektor<subject> vec=temp.Makesvipredmeti();
+temp.svipredmeti(vec);
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid subject's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert subject's ID: " << std::endl;
+  temp.svipredmeti(temp.Makesvipredmeti());
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existSub(input));
+system("clear");
+std::cout << "Subject: " << std::endl;
+temp.jedanpredmet(input);
+}
+
+void allsubject (Base& temp){
+system("clear");
+std::cout <<"Subjects:" << std::endl;
+Vektor<subject> vec=temp.Makesvipredmeti();
+temp.svipredmeti(vec);
+}
+
+void readdepsub(Base& temp){
+system("clear");
+Vektor<department> vec=temp.Makesvidepartmenti();
+temp.svidepartmenti();
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid department's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert department's ID: " << std::endl;
+  temp.svidepartmenti();
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existDep(input));
+system("clear");
+temp.predmetisdepartmenta(input);
+
+
+}
+
+
+
+void readsubjectmenu(Base& temp){
+  bool prgLoop=true;
+  int opt;
+  system("clear");
+  while(prgLoop){
+   std::cout << "Enter what do you want to read:\n\n";
+    std::cout << "1. Read subject\n2. Read all subjects\n3. Read subjects from department\n0. Go back\n\n";
+    std::cout << "Your option: ";
+    std::cin >> opt;
+    switch(opt){
+      case 1:
+        readsubject(temp);
+        break;
+      case 2:
+        allsubject(temp);
+        break;
+      case 3:
+        readdepsub(temp); 
+        break;  
+      case 0:
+        return;
+        break;
+      default:
+      system("clear");
+      std::cout << red <<"Invalid option!\nTry Again!\n"<<reset<<std::endl;
+        break;
+
+}}}
+void readdepartment(Base& temp)
+{system("clear");
+
+temp.svidepartmenti();
+std::string input("uslov");
+
+do{
+   system("clear");
+  if(input!="uslov")
+    std::cout << red << "Invalid department's ID!\n" << reset << std::endl;
+  
+  std::cout<<  "Insert department's ID: " << std::endl;
+  temp.svidepartmenti();
+  std::cout << "\nYour option: ";
+  std::cin >> input;
+  
+}while(!temp.existDep(input));
+system("clear");
+temp.jedandepartment(input);
+}
+void alldepartments(Base& temp)
+{system("clear");
+  std::cout << "Departments: " <<std::endl;
+  temp.svidepartmenti();
+  std::cout << std::endl;
+
+}
+
+void readdepartmentmenu(Base& temp){
+  bool prgLoop=true;
+  int opt;
+  system("clear");
+  while(prgLoop){
+   std::cout << "Enter what do you want to read:\n\n";
+    std::cout << "1. Read department\n2. Read all departments\n0. Go back\n\n";
+    std::cout << "Your option: ";
+    std::cin >> opt;
+    switch(opt){
+      case 1:
+        readdepartment(temp);
+        break;
+      case 2:
+        alldepartments(temp);
+        break;
+      case 0:
+        return;
+        break;
+      default:
+      system("clear");
+      std::cout << red <<"Invalid option!\nTry Again!\n"<<reset<<std::endl;
+        break;
+
+
+    }
+  }
+}
+
+void readDataMenu(Base& temp){
   bool prgLoop=true;
   int opt;
   system("clear");
@@ -981,19 +1300,27 @@ void readDataMenu(){
     std::cin >> opt;
     switch(opt){
       case 1:
+        readstudentmenu(temp);
+        system("clear");
         break;
       case 2:
+        readteachermenu(temp);
+        system("clear");
         break;
       case 3:
+        readsubjectmenu(temp);
+        system("clear");
         break;
       case 4:
+        readdepartmentmenu(temp);
+        system("clear");
         break;
       case 0:
         return;
         break;
       default:
       system("clear");
-      std::cout << red <<"Invalid option!"<<reset<<std::endl;
+      std::cout << red <<"Invalid option!\nTry again!\n"<<reset<<std::endl;
         break;
     }
   }
