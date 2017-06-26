@@ -1,3 +1,2 @@
-id | name
 1, Racunarstvo i informatika
 2, Automatika i robotika
