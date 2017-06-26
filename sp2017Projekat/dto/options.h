@@ -1,12 +1,6 @@
 #ifndef OPTIONS_H_
 #define OPTIONS_H_
 #include "baza.h"
-// BOJE TEXTA - Definicije
-const  std::string title("\033[0;32m");
-const  std::string reset("\033[0m"); //resetuje boju
-const std::string red("\033[1;31m");
-const std::string green("\033[1;32m");
-
 int rimtoarab(const std::string& broj){
   if(broj=="I")
     return 1;
@@ -35,11 +29,38 @@ void insertDepartmentMenu(Base& temp){
   system("clear");
   department dummyDep;
   std::string input;
+  std::string confirm;
+  bool confirmStatus=true;
+  do{
   std::cout << "Insert department's name: ";
   std::cin >> input;
   dummyDep.setName(input);
   system("clear");
-  std::cout << "Department's name is " << red << input << reset<< "\n";
+
+  do{
+    std::cout << "Department's name is " << red << input << reset<< "\n";
+    std::cout << "Do you confirm this input? (Y/N):";
+    std::cin >> confirm;
+    system("clear");
+    if((confirm!="Y" && confirm!="N")){
+    std::cout <<red <<"Invalid confirm option! (Please insert 'Y' or 'N')!"<<reset<<std::endl;
+  }
+ 
+  }
+  while(confirm!="Y" && confirm!="N");
+  if(confirm=="N"){
+    confirmStatus=false;
+    std::cout<<green<<"Insert new value!\n"<<reset<<std::endl;
+  }
+   else
+    confirmStatus=true;
+  }
+   while(!confirmStatus);
+  std::cout<<"Department's name is "<<red<<input<<reset<<std::endl;
+ system("clear");
+  std::cout<<green<<"DEPARTAMENT HAS BEEN SUCCESSFULLY INSERTED!\n"<<reset;
+
+
   temp.insertDepartment(dummyDep);
 }
 
@@ -105,9 +126,23 @@ void insertSubjectMenu(Base& temp){
     while(rimtoarab(input)!=(tY*2) && rimtoarab(input)!=((tY*2)-1));
     std::cout<<"Subject's semester is "<<red<<input<<reset<<"\n";
     tempDS.setSemester(input);
-    temp.insertDepartmentsSubjects(tempDS);
 
-
+std::cout<<green<<"Subject's information:\n"<<reset;
+  temp.getTempSubject(dummySub,tempDS.getStudyYear(),tempDS.getSemester());
+ std::string confirm;
+  do{
+  std::cout<<red<<"DO YOU WANT TO PROCEED?('Y' or 'N'):"<<reset; 
+  std::cin>>confirm;
+  if(confirm=="N")
+    insertSubjectMenu(temp);
+  
+  if(confirm=="Y")
+    temp.insertSubject(dummySub);
+ temp.insertDepartmentsSubjects(tempDS);
+  }  
+  while(confirm!="Y" && confirm!="N");
+  system("clear");
+  std::cout<<green<<"SUBJECT HAS BEEN SUCCESSFULLY INSERTED!\n"<<reset;
 }
 
 void linkStudentSubject(Base& temp){
@@ -227,13 +262,12 @@ void insertTeacherMenu(Base& temp){
   dummyTeacher.setEmail(input);
   system("clear");
    std::cout << "Teacher's email is "<< red << input << reset<<"\n";
-  std::cout << "Insert teacher's gender(M/F): ";
-  input=std::string{};
+   input=std::string{};
   do{
     if(input!=std::string{}){
+     std::cout << "Insert teacher's gender(M/F): ";
       std::cout<<red<<"Invalid gender format. Must be 'M' or 'F'!"<<reset<<std::endl;
     }
-    std::cout<<"Insert teacher's gender: ";
     std::cin>>input;
     system("clear");
 
@@ -262,8 +296,21 @@ void insertTeacherMenu(Base& temp){
   dummyTeacher.setDepartmentId(input);
   system("clear");
   std::cout<<"Teacher's department is "<<red<<temp.getDepartmentById(input)<<reset<<"\n";
-  temp.insertTeacher(dummyTeacher);
-
+  std::cout<<green<<"Teacher's information:\n"<<reset;
+  temp.getTempTeacher(dummyTeacher);
+ std::string confirm;
+  do{
+  std::cout<<red<<"DO YOU WANT TO PROCEED?('Y' or 'N'):"<<reset; 
+  std::cin>>confirm;
+  if(confirm=="N")
+    insertTeacherMenu(temp);
+  
+  if(confirm=="Y")
+    temp.insertTeacher(dummyTeacher);
+  }  
+  while(confirm!="Y" && confirm!="N");
+  system("clear");
+  std::cout<<green<<"TEACHER HAS BEEN SUCCESSFULLY INSERTED!\n"<<reset;
 
 
 
@@ -306,13 +353,12 @@ void insertStudentMenu(Base& temp){
   dummyStud.setEmail(input);
   system("clear");
    std::cout << "Student's email is "<< red << input << reset<<"\n";
-  std::cout << "Insert student's gender(M/F): ";
-  input=std::string{};
+    input=std::string{};
   do{
+  std::cout << "Insert student's gender(M/F): ";
     if(input!=std::string{}){
       std::cout<<red<<"Invalid gender format. Must be 'M' or 'F'!"<<reset<<std::endl;
     }
-    std::cout<<"Insert student's gender: ";
     std::cin>>input;
     system("clear");
 
@@ -335,6 +381,23 @@ void insertStudentMenu(Base& temp){
   dummyStud.setDepartmentId(input);
   system("clear");
   std::cout<<"Student's department is "<<red<<temp.getDepartmentById(input)<<reset<<"\n";
+  std::cout<<green<<"Student's information:\n"<<reset;
+  temp.getTempStudent(dummyStud);
+ std::string confirm;
+  do{
+  std::cout<<red<<"DO YOU WANT TO PROCEED?('Y' or 'N'):"<<reset; 
+  std::cin>>confirm;
+  if(confirm=="N")
+    insertStudentMenu(temp);
+  
+  if(confirm=="Y")
+    temp.insertStudent(dummyStud);
+  }  
+  while(confirm!="Y" && confirm!="N");
+  system("clear");
+  std::cout<<green<<"STUDENT HAS BEEN SUCCESSFULLY INSERTED!\n"<<reset;
+
+
   temp.insertStudent(dummyStud);
 
 
@@ -361,21 +424,42 @@ system("clear");
 std::cout << red << temp.getTeacherById(input).getFirstName() + temp.getTeacherById(input).getLastName() << reset << std::endl;
 
 input = "uslov";
-
+bool uslov = true;
+while(uslov){
 do{
+  input="uslov";
   system("clear");
   if(input!="uslov")
     std::cout << red << "Invalid subject ID!" << reset << std::endl;
   std::cout << "Chose a subject to link to a teacher!\n";
   temp.svipredmeti(temp.Makesvipredmeti());
   std::cout << "\nYour option: ";
-  std::cin >> input;
+  std::cin >> input;  
 }while(!temp.existSub(input));
 tempST.setSubId(input);
-temp.insertSubjectTeacher(tempST);
-
-
+if(temp.existSubjectTeacher(tempST)){
+  system("clear");
+  std::cout <<red<< "Chosen subject already has a teacher!"<<reset<< std::endl;
+  std::cout << "Do you want to abort(Y/N): ";
+  bool yes_no_usl=true;
+  while(yes_no_usl){
+  std::string yes_no;
+  std::cin >> yes_no;
+  if(yes_no=="Y"){
+    return;
+  }else{
+    if(yes_no=="N"){
+    yes_no_usl=false;
+    }else{
+      std::cout << red << "Must be Y or N!\n"<<reset;
+     }
+  }
+  }
 }
+}
+temp.insertSubjectTeacher(tempST);
+}
+
 
 void insertDataMenu(Base& temp){
   bool prgLoop=true;
@@ -389,19 +473,17 @@ void insertDataMenu(Base& temp){
     switch(opt){
       case 1:
         insertStudentMenu(temp);
-        system("clear");
         break;
       case 2:
 	      insertTeacherMenu(temp);
-        system("clear");
+
         break;
       case 3:
 	      insertSubjectMenu(temp);
-        system("clear");
         break;
       case 4:
 	      insertDepartmentMenu(temp);
-        system("clear");
+      
         break;
       case 5:
   	    linkStudentSubject(temp);
@@ -458,16 +540,70 @@ void editStudentEmail(student& tempStudent){
   std::cout << "Email changed to: " << red << input << reset << std::endl;
 
 }
-void editStudentSubject(student& tempStudent){
+
+
+
+void editStudentSubject(Base& temp,student& tempStudent){
   system("clear");
-  
-  
+  studentsSubjectsTeachers tempSST;
+    std::string input("uslovni");
+  do{
+    if(input!="uslovni"){
+      std::cout << red << "Invalid ID\n" << reset;
+    }
+    system("clear");
+    std::cout << "Select subject you want to edit:\n";
+    // temp.predmetistudenta(tempStudent.getId()); OD KOMENTARISIiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii
+    std::cout << "Yout input: ";
+    std::cin >> input;
+
+  }while(!temp.existSub(input));
+tempSST.setSubId(input);
+tempSST.setStudId(tempStudent.getId());
+tempSST=temp.getSST(tempSST);
+int tempEval;
+bool usl=true;
+system("clear");  
+while(usl){
+    
+    std::cout << "Previous evaluation: " << red << tempSST.getEval() << reset << std::endl;
+    std::cout << "New evaluation: ";
+    std::cin >> tempEval;
+    if(tempEval<6 || tempEval>10){
+      system("clear");
+      std::cout << red << "Invalid input! Eval must be between 6 and 10!" << reset << std::endl;
+    }
+    else usl=false;
+  }
+tempSST.setEval(std::to_string(tempEval));
+
+system("clear");
+std::cout << "Insert the date of the evaluation: ";
+std::cin >> input;
+tempSST.setDate(input);
+system("clear");
+bool yes_no_usl=true;
+while(yes_no_usl){
+
+std::cout << "New evaluation: "<< red << tempSST.getEval()<<reset << "\tNew evaluation date: " << red << tempSST.getDate() << reset << std::endl;
+std::cout << "Do you want to acept the changes? (Y/N): ";
+std::cin >> input;
+if(input=="Y"){
+  temp.setSST(tempSST);
+}else{
+  if(input!="N"){
+    std::cout << red << "Invalid option!" << reset << std::endl;
+  }else yes_no_usl=false;
+}
+
+}
+
 }
 
 
 
 
-void updateStudentMenu(student& tempStudent){
+void updateStudentMenu(Base& temp,student& tempStudent){
   int input=-1;
   bool prgLoop=true;
   do{
@@ -493,6 +629,7 @@ void updateStudentMenu(student& tempStudent){
       
       break;
     case 4:
+      editStudentSubject(temp,tempStudent);
       break;
     case 0:
       prgLoop=false;
@@ -518,9 +655,284 @@ void updateStudent(Base& temp){
     std::cin >> input;
   }while(!temp.existStud(input));
   student tempStudent=temp.getStudentById(input);
-  updateStudentMenu(tempStudent);
+  updateStudentMenu(temp,tempStudent);
   temp.setStudent(tempStudent);
 }
+
+
+void updateTeacherFirstName(Base& temp,teacher& tempTeacher){
+  system("clear");
+  std::string input;
+  std::cout << "Teacher first name: " << red << tempTeacher.getFirstName() << reset << std::endl;
+  std::cout << "Change name to: ";
+  std::cin >> input;
+  tempTeacher.setFirstName(input);
+  system("clear");
+  std::cout << "Name changed to: " << red << input << reset << std::endl;
+
+  temp.setTeacher(tempTeacher);
+}
+
+void updateTeacherLastName(Base& temp,teacher& tempTeacher){
+  system("clear");
+  std::string input;
+  std::cout << "Teacher last name: " << red << tempTeacher.getLastName() << reset << std::endl;
+  std::cout << "Change name to: ";
+  std::cin >> input;
+  tempTeacher.setLastName(input);
+  system("clear");
+  std::cout << "Name changed to: " << red << input << reset << std::endl;
+
+  temp.setTeacher(tempTeacher);
+}
+
+
+void updateTeacherEmail(Base& temp,teacher& tempTeacher){
+  system("clear");
+  std::string input;
+  std::cout << "Teacher email: " << red << tempTeacher.getEmail() << reset << std::endl;
+  std::cout << "Change email to: ";
+  std::cin >> input;
+  tempTeacher.setEmail(input);
+  system("clear");
+  std::cout << "Email changed to: " << red << input << reset << std::endl;
+
+  temp.setTeacher(tempTeacher);
+}
+
+void updateTeacherTitle(Base& temp,teacher& tempTeacher){
+  system("clear");
+  std::string input;
+  std::cout << "Teacher title: " << red << tempTeacher.getTitle() << reset << std::endl;
+  std::cout << "Change title to: ";
+  std::cin >> input;
+  tempTeacher.setTitle(input);
+  system("clear");
+  std::cout << "Title changed to: " << red << input << reset << std::endl;
+  temp.setTeacher(tempTeacher);
+}
+
+
+void updateTeacherDepartment(Base& temp,teacher& tempTeacher){
+  system("clear");
+  std::cout << "Previous teacher department: " <<red<< temp.getDepartmentById(tempTeacher.getDepartmentId()) << reset << std::endl;
+  
+  std::string input{"Uslovni"};
+  do{
+    if(input!="Uslovni")
+      std::cout << red << "Invalid ID!" << reset << std::endl;
+  std::cout << "Department ID you want to asign: \n";
+  temp.svidepartmenti();
+  std::cout << "Your option: ";
+  std::cin >> input;
+  system("clear");
+  }while(!temp.existDep(input));
+  tempTeacher.setDepartmentId(input);
+  temp.setTeacher(tempTeacher);
+ 
+}
+
+
+
+void updateTeacherMenu(Base& temp){
+  teacher tempTeacher;
+  system("clear");
+  
+  std::string input{"Uslovni"};
+  do{
+    if(input!="Uslovni")
+      std::cout << red << "Invalid ID!" << reset << std::endl;
+  std::cout << "Insert witch teacher you want to edit: \n";
+  temp.sviprofesori(temp.Makesviprofesori());
+  std::cout << "Your option: ";
+  std::cin >> input;
+  system("clear");
+  }while(!temp.existTeacher(input));
+  tempTeacher=temp.getTeacherById(input);
+  
+  bool prgLoop=true;
+  int opt;
+  system("clear");
+  while(prgLoop){
+    std::cout <<  "Teacher eddited: " << red << tempTeacher.getFirstName() + " " + tempTeacher.getLastName() << reset << std::endl;
+    std::cout << "Enter what do you want to update:\n\n";
+    std::cout<< "1. Update teacher first name\n2. Update teacher last name\n3. Update teacher title\n4. Update teacher email\n5. Update teacher department\n0. Go back\n\n";
+    std::cout << "Your option: ";
+    std::cin >> opt;
+    switch(opt){
+      case 1:
+        updateTeacherFirstName(temp,tempTeacher);
+        system("clear");
+        break;
+      case 2:
+        updateTeacherLastName(temp,tempTeacher);
+        system("clear");
+        break;
+      case 3:
+        updateTeacherTitle(temp,tempTeacher);
+        system("clear");
+        break;
+      case 4:
+        updateTeacherEmail(temp,tempTeacher);
+        system("clear");
+        break;
+      case 5:
+        updateTeacherDepartment(temp,tempTeacher);
+        system("clear");
+        break;
+      case 0:
+        return;
+        break;
+      default:
+      system("clear");
+      std::cout << red <<"Invalid option!"<<reset<<std::endl;
+        break;
+    }
+  }
+}
+
+void updateSubjectName(Base& temp,subject& tempSubject){
+  system("clear");
+  std::string input;
+  std::cout << "Subject name: " << red << tempSubject.getName() << reset << std::endl;
+  std::cout << "Change name to: ";
+  std::cin >> input;
+  tempSubject.setName(input);
+  system("clear");
+  std::cout << "Name changed to: " << red << input << reset << std::endl;
+
+  temp.setSubject(tempSubject);
+}
+
+void updateSubjectDepartment(Base& temp,subject& tempSubject){
+  system("clear");
+  depSub tempDepSub=temp.getSubjectInfo(tempSubject.getId());
+
+  std::string input;
+  do{
+  std::cout << "Subject department: " << red << temp.getSubjectDepartment(tempSubject.getId()).getName() << reset << std::endl;
+  std::cout << "Department to: \n";
+  temp.svidepartmenti();
+  std::cin >> input;
+  tempDepSub.setDeptId(input);
+  system("clear");
+  std::cout << "Deapartment changed to: " << red << temp.getDepartmentById(input) << reset << std::endl;
+  }while(!temp.existDep(input));
+  system("clear");
+  temp.setDepSub(tempDepSub);
+}
+
+void updateSubjectEcts(Base& temp,subject& tempSubject){
+  system("clear");
+  
+
+  std::string input("uslovni");
+  do{
+    if(input!="uslovni")
+      std::cout << red << "Invalid insert!" << reset << std::endl;
+  std::cout << "Subject ects: " << red << tempSubject.getEcts() << reset << std::endl;
+  std::cout << "Ects to: \n";
+  std::cin >> input;
+  system("clear");
+  }while((input!="6")&&(input!="7")&&(input!="8")&&(input!="9"));
+ system("clear");
+  tempSubject.setEcts(input);
+  temp.setSubject(tempSubject);
+  std::cout << "Ects changed to: " << red << tempSubject.getEcts() << reset << std::endl;
+}
+
+void updateSubjectSS(Base& temp,subject& tempSubject){
+  
+  depSub tempDepSub;
+  system("clear");
+  std::string input;  
+ do{
+    std::cout<<"Insert subject's study year("<<red<<"INSERT: 'I' or 'II'' or 'III' or 'IV'"<<reset<<"):";
+    std::cin>>input;
+    system("clear");
+    if(input!="I" && input!="II" && input!="III" && input!="IV")
+      std::cout<<red<<"Invalid study year format!"<<reset<<std::endl;
+    }
+    while(input!="I" && input!="II" && input!="III" && input!="IV");
+    system("clear");    
+    std::cout<<"Subject's study year is "<<red<<input<<reset<<"\n";
+    tempDepSub.setStudyYear(input);
+    
+    int tY=rimtoarab(input);
+  do{
+    std::cout<<"Insert subject's semester("<<red<<"INSERT: 'I' or 'II'' or 'III' or 'IV' or 'V' or 'VI' or 'VII' or 'VIII'"<<reset<<"):";
+    std::cin>>input;
+    system("clear");
+    if((input!="I" && input!="II" && input!="III" && input!="IV" && input!="V" && input!="VI" && input!="VII" && input!="VII") || ( rimtoarab(input)!=(tY*2) && rimtoarab(input)!=((tY*2)-1)))
+      std::cout<<red<<"Invalid semester format!"<<reset<<std::endl;
+    }
+    while(rimtoarab(input)!=(tY*2) && rimtoarab(input)!=((tY*2)-1));
+  system("clear");  
+  std::cout<<"Subject's semester is "<<red<<input<<reset<<"\n";
+  tempDepSub.setSemester(input);
+  temp.setDepSub(tempDepSub);
+
+
+
+  
+}
+
+
+
+
+
+
+void updateSubjectMenu(Base& temp){
+  subject tempSubject;
+  system("clear");
+  
+  std::string input{"Uslovni"};
+  do{
+    if(input!="Uslovni")
+      std::cout << red << "Invalid ID!" << reset << std::endl;
+  std::cout << "Insert witch subject you want to edit: \n";
+  temp.svipredmeti(temp.Makesvipredmeti());
+  std::cout << "Your option: ";
+  std::cin >> input;
+  system("clear");
+  }while(!temp.existSub(input));
+  tempSubject=temp.getSubjectById(input);
+  
+  bool prgLoop=true;
+  int opt;
+  system("clear");
+  while(prgLoop){
+    std::cout <<  "Subject eddited: " << red << tempSubject.getName()<< reset << std::endl;
+    std::cout << "Enter what do you want to update:\n\n";
+    std::cout<< "1. Update subject name\n2. Update subject department\n3. Update subject ects\n4. Update year and semester\n0. Go back\n\n";
+    std::cout << "Your option: ";
+    std::cin >> opt;
+    switch(opt){
+      case 1:
+        updateSubjectName(temp,tempSubject); 
+        break;
+      case 2:
+        updateSubjectDepartment(temp,tempSubject); 
+        break;
+      case 3:
+        updateSubjectEcts(temp,tempSubject);
+        break;
+      case 4:
+        updateSubjectSS(temp,tempSubject); 
+        break;
+      case 0:
+        return;
+        break;
+      default:
+      system("clear");
+      std::cout << red <<"Invalid option!"<<reset<<std::endl;
+        break;
+    }
+  }
+}
+
+
+
 
 
 
@@ -540,8 +952,12 @@ void updateDataMenu(Base& temp){
         system("clear");
         break;
       case 2:
+        updateTeacherMenu(temp);
+        system("clear");
         break;
       case 3:
+        updateSubjectMenu(temp);
+        system("clear");
         break;
       case 0:
         return;
